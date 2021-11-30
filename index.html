@@ -16,8 +16,8 @@
       <div class="sommaire">
         <h3 id="sommaire">- Sommaire -</h3>
         <ul class="list_sommaire">  
-            <li><strong><a href="#">1.1 Créez votre première application Vue.js</a></strong></li>
-            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#vue">1.1 Créez votre première application Vue.js</a></strong></li>
+            <li><strong><a href="#store_data">1.2 Stockez et gérez des données</a></strong></li>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
@@ -40,7 +40,7 @@
     <h3 class="sommaire_fixed"><a href="#sommaire">Index</a></h3>
     
 
-    <h2 id="monopages">Découvrez le monde des applications monopages</h2> 
+    <h2 id="vue">Découvrez le monde des applications monopages</h2> 
     Dans le modèle traditionnel du développement web, lorsqu'un utilisateur clique sur un lien pour aller sur une nouvelle page ou doit mettre à jour le contenu d'une page,
      la page entière doit généralement être rechargée.<br>
      Cela signifie que même si l'utilisateur ne fait que soumettre un simple formulaire, une nouvelle page est générée pour gérer la réponse.<br><br>
@@ -234,6 +234,191 @@ Pour commencer, consultez la branche  <div class="inner_code">P1C2-Begin</div>.
   <li>associer Vue à un élément HTML</li>
   <li>définir un espace de stockage de données simple</li>
   <li>afficher le rendu de données à l'aide des doubles accolades</li>
+</ul>
+
+
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="store_data">1.2 Stockez et gérez des données</h2> 
+<h3>Gardez vos données à jour</h3>
+Lors de la création d'une application, un des points les plus critiques est de s'assurer que les données sont toujours à jour et aussi faciles à maintenir que possible.<br>
+Dans une page web traditionnelle, lorsqu'on écrit du contenu en HTML simple, le contenu est considéré comme des données « codées en dur » ou « statiques ».<br>
+Ce contenu n'est pas censé être modifié en fonction d'autres variables de la page.<br>
+Bien que cette pratique soit parfaitement adaptée à des données n'apparaissant qu'une seule fois sur le site, cela a ses limites.<br>
+Cette méthode devient très difficile à gérer dans le temps, à mesure que les données sont propagées au sein d'une application.<br>
+Prenons un exemple de panier d'achats.<br>
+<figure>
+  <img src="media/3-cart.png" alt="">
+  <figcaption>Exemple avec un panier d'achats</figcaption>
+</figure><br><br>
+
+<div class="code">
+  <<span style="color:rgb(0, 0, 0);">.</span>html><br>
+<<span style="color:rgb(0, 0, 0);">.</span>body><br>
+  <<span style="color:rgb(0, 0, 0);">.</span>h1>VueMart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
+  <br>
+  <<span style="color:rgb(0, 0, 0);">.</span>h2>Panier<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
+  <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>li>Pommes: 6€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>li>Bananes: 2€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>li>Noix de coco: 8€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+  <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
+  <<span style="color:rgb(0, 0, 0);">.</span>p>Total: 16€<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+<<span style="color:rgb(0, 0, 0);">.</span>/body><br>
+<<span style="color:rgb(0, 0, 0);">.</span>/html>
+</div><br><br>
+Dans l'exemple ci-dessus, nous pouvons voir que cette page contient une liste du contenu de la commande de l'utilisateur.<br>
+Cependant, que se passerait-il si nous faisions passer le coût des bananes de 2 € à 10 € ?<br>
+Le montant total devrait également être mis à jour avec la bonne valeur.<br>
+En d'autres termes, le total restera fixé à 16 €, à moins de le modifier manuellement en effectuant les calculs nécessaires pour le mettre à jour.
+<h3>Découvrez les données réactives</h3>
+Si vous avez déjà utilisé Excel et des spreadsheets, vous êtes très probablement familier avec la création d'équations dans des cellules de données.<br>
+Par exemple, dans l'illustration suivante, le montant total est généré en additionnant les montants des pommes, des bananes et des noix de coco.<br>
+Si l'un des montants change, cela se reflète automatiquement dans le total, sans aucun effort supplémentaire de votre part.<br>
+<figure>
+  <img src="media/4-excel_spreadsheet.gif" alt="">
+  <figcaption>Les données se mettent à jour automatiquement dans une spreadsheet</figcaption>
+</figure><br><br>
+Comme vous pouvez le constater, lorsque le montant des pommes passe à 6, le total augmente automatiquement à 20.<br>
+C'est l'essence même des données réactives puisqu'elles « réagissent » à toute modification et mettent à jour les valeurs concernées en conséquence.
+
+<h3>Faites le lien entre les données réactives et Vue</h3>
+Grâce aux connaissances que vous avez acquises dans le chapitre précédent, mettons maintenant en place un data store pour notre petit marché Vue !<br>
+<div class="code">
+  const app = new Vue({<br>
+    el: '#app',<br>
+    data: {<br>
+      costOfApples: 6,<br>
+      costOfBananas: 2,<br>
+      costOfCoconuts: 8<br>
+    }<br>
+  })
+</div><br><br>
+Dans notre HTML, nous pouvons maintenant réécrire le contenu statique pour qu'il ressemble à ceci :<br>
+<div class="code">
+  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>h1>VueMart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
+    <br>
+    <<span style="color:rgb(0, 0, 0);">.</span>h2>Panier<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>li>Pommes: {{ costOfApples }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>li>Bananes: {{ costOfBananas }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>li>Noix de coco: {{ costOfCoconuts }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>p>Total: {{ costOfApples + costOfBananas + costOfCoconuts }}€<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+      <br>
+    <<span style="color:rgb(0, 0, 0);">.</span>h2>Horaires d'ouverture<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>p>Dimanche: 10h - 16h</<span style="color:rgb(0, 0, 0);">.</span>p><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>p>Du lundi au vendredi : 09h - 17h<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>p>Samedi : 09h30 - 18h00<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+  <<span style="color:rgb(0, 0, 0);">.</span>/div>
+</div><br><br>
+Comme vous pouvez le voir maintenant, le calcul du montant total est basé sur les trois variables :  <div class="inner_code">costOfApples</div>,  <div class="inner_code">costOfBananas</div>  et  <div class="inner_code">costOfCoconuts</div>.<br>
+En cas de modification de l'une de ces valeurs, le total s'adaptera en conséquence.<br>
+En d'autres termes, le data store fait en sorte que tout soit réactif pour que vous n'ayez plus à intervenir !<br>
+Bien que notre solution fonctionne, elle n'est pas satisfaisante lorsque le contenu de notre panier augmente.<br>
+En effet, cela crée un surplus de travail.<br>
+Et il serait bien plus propre de pouvoir écrire à la place  <div class="inner_code">{{ totalAmount }}</div>.<br>
+Après tout, bien que le panier d'achats ne contienne que trois articles pour le moment, vous comprenez que cela puisse rapidement devenir incontrôlable à mesure que le panier se remplit.<br>
+Heureusement pour nous, Vue dispose d'une propriété pour nous aider à traiter ce type de cas : les propriétés calculées.
+
+<h3>Découvrez les propriétés calculées</h3>
+Les propriétés calculées (computed properties) nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés  <div class="inner_code">data</div>.<br>
+Comme pour la propriété  <div class="inner_code">data</div>, nous commençons par ajouter une propriété  <div class="inner_code">computed</div> (calculée ) qui utilise un objet pour définir les propriétés que nous voulons. <br>
+<div class="code">
+  const app = new Vue({<br>
+    el: '#app',<br>
+    data: {<br>
+      costOfApples: 6,<br>
+      costOfBananas: 2,<br>
+      costOfCoconuts: 8<br>
+    },<br>
+    computed: {}<br>
+  })
+</div><br><br>
+Cependant, contrairement à la propriété  <div class="inner_code">data</div>,<br>
+ chaque propriété calculée doit être une fonction retournant une valeur.<br>
+ En effet, elle effectue des calculs et retourne le résultat souhaité.<br><br>
+ Comme je l'ai mentionné précédemment, notre but est de simplifier notre code HTML en utilisant  <div class="inner_code">{{ totalAmount }}</div>  au lieu de  <div class="inner_code">{{ costOfApples + costOfBananas + costOfCoconuts }}</div>.<br>
+ Cela peut se faire de la manière suivante :<br>
+ <div class="code">
+  const app = new Vue({<br>
+    el: '#app',<br>
+    data: {<br>
+      costOfApples: 6,<br>
+      costOfBananas: 2,<br>
+      costOfCoconuts: 8<br>
+    },<br>
+    computed: {<br>
+      totalAmount() {<br>
+        return this.costOfApples + this.costOfBananas + this.costOfCoconuts<br>
+      }<br>
+    }<br>
+  })
+</div><br><br>
+<div class="remarque">
+  Cet exemple utilise la syntaxe ES6 pour définir une fonction (c'est-à-dire que  <div class="inner_code">totalAmount()  { ... }</div>  est identique à  <div class="inner_code">totalAmount: function()  { ... })</div>.<br>
+  Cependant, <strong>n'utilisez pas les fonctions fléchées</strong>, car cela réinitialisera le contexte de  <div class="inner_code">this</div>.<br>
+  Cela cassera l'application puisque vous avez besoin de  <div class="inner_code">this</div>  pour pointer vers l'instance de Vue, afin de faire référence aux propriétés de  <div class="inner_code">data</div>.
+</div><br><br>
+Avec ce refactoring, notre code est complet !<br>
+<div class="code">
+  <<span style="color:rgb(0, 0, 0);">.</span>html><br>
+<<span style="color:rgb(0, 0, 0);">.</span>body><br>
+  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>h1>VueMart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
+    <br>
+    <<span style="color:rgb(0, 0, 0);">.</span>h2>Panier<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>li>Pommes: {{ costOfApples }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>li>Bananes: {{ costOfBananas }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>li>Noix de coco: {{ costOfCoconuts }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>p>Total: {{ totalAmount }}€<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+    <br>
+    <<span style="color:rgb(0, 0, 0);">.</span>h2>Horaires d'ouverture<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>p>Dimanche: 10h - 16h<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>p>Du lundi au vendredi: 09h - 17h<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>p>Samesi: 09h30 - 18h00<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+  <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+  <br>
+  <<span style="color:rgb(0, 0, 0);">.</span>script><br>
+    const app = new Vue({<br>
+      el: '#app',<br>
+      data: {<br>
+        costOfApples: 6,<br>
+        costOfBananas: 2,<br>
+        costOfCoconuts: 8<br>
+      },<br>
+      computed: {<br>
+        totalAmount() {<br>
+          return this.costOfApples + this.costOfBananas + this.costOfCoconuts<br>
+        }<br>
+      }<br>
+    })<br>
+  <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+<<span style="color:rgb(0, 0, 0);">.</span>/body><br>
+<<span style="color:rgb(0, 0, 0);">.</span>/html>
+</div><br><br>
+Toutes les données de notre application sont maintenant dynamiques et prêtes à réagir à toute modification pouvant intervenir dans le panier de l'utilisateur.<br><br>
+Pour le vérifier, vous pouvez par exemple vous rendre dans la console et taper  <div class="inner_code">app.costOfApples = 4</div>.<br>
+Toutes les données se mettent à jour automatiquement !
+<h3>Entraînez-vous !</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P1C3-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+  <li>Remplacez le nom du restaurant par "Café avec vue". Cela devrait être mis à jour partout sur le site.</li>
+  <li>Déplacez les données sur le restaurant dans le data store (le numéro de téléphone, l'adresse email et l'adresse postale).</li>
+  <li>Créez une propriété calculée pour le texte de copyright dans le footer.</li>
+</ol>
+
+<h3>En résumé</h3>
+Dans ce chapitre, vous avez découvert :
+<ul>
+  <li>les données réactives et leur importance dans la création de données maintenables dans une application ;</li>
+  <li>comment utiliser  <div class="inner_code">data</div>  pour gérer les données dans votre application Vue.js ;</li>
+  <li>comment utiliser les propriétés calculées (<div class="inner_code">computed</div> properties) pour simplifier votre code et la gestion de vos données.</li>
 </ul>
 
   </body>
