@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylecours.css" />
+    <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
+    
+    <title>Vue.JS</title>
+  </head>
+
+  <body>
+
+    <div class="title">Vue.JS</div>
+
+    <div class="content">
+      <div class="sommaire">
+        <h3 id="sommaire">- Sommaire -</h3>
+        <ul class="list_sommaire">  
+            <li><strong><a href="#">1.1 Créez votre première application Vue.js</a></strong></li>
+            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#"></a></strong></li>
+        </ul>
+      </div>
+      <div class="sommaire">
+        <h3>- Ressource -</h3>
+        <ul class="list_sommaire">
+          <li><a href="" target="_blank"></a></li>
+          <li><a href="" target="_blank"></a></li>
+          <li><a href="" target="_blank"></a></li>
+          <li><a href="" target="_blank"></a></li>
+          <li><a href="" target="_blank"></a></li>
+          <li><a href="" target="_blank"></a></li>
+        </ul>
+      </div>
+    </div>
+    <h3 class="sommaire_fixed"><a href="#sommaire">Index</a></h3>
+    
+
+    <h2 id="monopages">Découvrez le monde des applications monopages</h2> 
+    Dans le modèle traditionnel du développement web, lorsqu'un utilisateur clique sur un lien pour aller sur une nouvelle page ou doit mettre à jour le contenu d'une page,
+     la page entière doit généralement être rechargée.<br>
+     Cela signifie que même si l'utilisateur ne fait que soumettre un simple formulaire, une nouvelle page est générée pour gérer la réponse.<br><br>
+     Cependant, cela pose plusieurs problèmes, car :
+     <ul>
+       <li>Pour les utilisateurs qui paient à la quantité de données consommées, la facture s'alourdit inutilement.<br>
+        En effet, ils doivent télécharger une page entière pour n'obtenir que de petites mises à jour.</li>
+       <li>L'expérience utilisateur est ainsi souvent détériorée.</li>
+     </ul>
+     Au début des années 2000, le concept d'applications monopages (Single Page Applications) s'est fait connaître mondialement, avec pour but de résoudre ces problèmes.<br>
+     Le concept fondamental des SPA est le suivant :
+     <ol>
+       <li>Les utilisateurs ne chargent une page web qu'une seule fois.</li>
+       <li>Les contenus de la page sont mis à jour de façon distincte plutôt qu'au niveau de la page entière,<br>
+         ce qui permet à l'utilisateur d'interagir de manière beaucoup plus dynamique.</li>
+       <li>JavaScript contrôle le lancement de nouvelles pages au sein du même domaine,<br>
+         cela ne nécessite ainsi plus de rafraîchissement complet de la page.</li>
+     </ol>
+     Cette idée a pu prendre vie au fur et à mesure, car les navigateurs et l'équipement des utilisateurs ont gagné en puissance.<br><br>
+     <div class="remarque">
+      Dans le web moderne, les SPA sont le plus souvent construites grâce à des frameworks frontend.
+     </div>
+
+     <h3>Découvrez notre framework : Vue</h3>
+     Lorsqu'il s'agit d'apprendre à utiliser un framework frontend, de nombreuses options s'offrent à nous :<br>
+     React, Angular, Vue, Polymer, et bien d'autres.<br>
+     Mais pour se lancer, j'aurais tendance à vous conseiller Vue.<br>
+     En effet, sa courbe d'apprentissage est la plus facile pour tout développeur ayant des compétences basiques en HTML, CSS et JavaScript.<br>
+     Par conséquent, cela signifie que :
+     <ol>
+       <li>Devenir membre contributeur d'un projet est beaucoup plus accessible.</li>
+       <li>Les personnes qui ne sont pas expertes en JavaScript peuvent contribuer à un projet avec un minimum d'accompagnement.</li>
+       <li>Les développeurs peuvent passer plus de temps à être productifs plutôt qu'à apprendre à utiliser un nouvel outil.</li>
+     </ol>
+     De plus, Vue a été conçu dès le départ pour être aussi intuitif que possible pour les développeurs.<br>
+     Cela signifie que beaucoup de temps et d'efforts sont consacrés à la conception de l'outil, afin qu'une formation minimale suffise pour être efficace, et produire du code.<br>
+     De plus, sa communauté particulièrement accueillante et une documentation remarquable en font un choix incontournable comme premier framework avec lequel les développeurs devraient travailler.<br><br>
+
+     <h3>Ajoutez Vue à votre site</h3>
+     Alors que pour bon nombre de frameworks, vous devrez passer par des outils de build complexes comme webpack, force est de constater que l'ajout d'une instance de Vue.js à votre site est aussi simple que d'intégrer une balise script  sur votre page HTML.<br>
+     Voici une simple page HTML avec le lien CDN (content delivery network) ou RDC, en français (pour réseau de diffusion de contenu) pour Vue.<br><br>
+     <div class="code">
+      <<span style="color:rgb(0, 0, 0);">.</span>!DOCTYPE html><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>html lang="fr"><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>head><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>title>Mon Application Vue.js<<span style="color:rgb(0, 0, 0);">.</span>/title><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/head><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>body><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+              <<span style="color:rgb(0, 0, 0);">.</span>h1>Ma première application Vue.js !<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
+              <<span style="color:rgb(0, 0, 0);">.</span>p>J'ai hâte de créer des applications incroyables !<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>script src="https://cdn.jsdelivr.net/npm/vue"><<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/body><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/html>
+     </div><br><br>
+     Voici comment tester si Vue a été correctement chargé ou non.<br>
+     <div class="code">
+      <<span style="color:rgb(0, 0, 0);">.</span>!DOCTYPE html><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>html lang="fr"><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>head><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>title>Mon Application Vue.js<<span style="color:rgb(0, 0, 0);">.</span>/title><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/head><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>body><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+              <<span style="color:rgb(0, 0, 0);">.</span>h1>Ma première application Vue.js !<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
+              <<span style="color:rgb(0, 0, 0);">.</span>p>J'ai hâte de créer des applications incroyables !<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>script><br>
+          <span style="color:rgb(140, 140, 140);">// Vue n'est pas encore chargé donc une ReferenceError devrait être retournée</span><br>
+            console.log(Vue)<br>
+            <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+            <<span style="color:rgb(0, 0, 0);">.</span>script src="https://cdn.jsdelivr.net/npm/vue"><<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+            <<span style="color:rgb(0, 0, 0);">.</span>script><br>
+            <span style="color:rgb(140, 140, 140);">// La console devrait maintenant afficher une fonction</span><br>
+                console.log(Vue)<br>
+            <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/body><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/html>
+     </div><br><br>
+     Si vous ouvrez cette page dans votre navigateur et vérifiez la console JavaScript, vous devriez voir :<br>
+     <figure>
+      <img src="media/1-Console.png" alt="">
+      <figcaption>Dans la console JavaScript</figcaption>
+    </figure><br><br>
+    Lorsque cette fonction s'affiche, cela signifie que vous avez bien réussi à charger Vue !
+
+    <h3>Définissez où Vue devrait apparaître sur votre page</h3>
+    Même si nous sommes parvenus à charger Vue sur notre page, cela ne signifie pas encore que notre site est devenu une application monopage.<br>
+    Bien que le terme SPA (application monopage ou single-page application) puisse nous faire penser que la page entière est contrôlée par JavaScript,<br>
+    la plupart des frameworks frontend permettent aux développeurs de contrôler quelle partie de la page est une SPA.<br>
+    En d'autres termes, vous pouvez décider de quel élément HTML le framework est responsable.<br><br>
+    Pour permettre à Vue d'accéder à notre page, nous devons commencer par créer une nouvelle instance de Vue.<br>
+    <div class="code">
+      <<span style="color:rgb(0, 0, 0);">.</span>!DOCTYPE html><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>html lang="fr"><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>body><br>
+      <span style="color:rgb(140, 140, 140);"><<span style="color:rgb(0, 0, 0);">.</span>!-- Contenu temporairement caché pour cet exemple --></span><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>script><br>
+          const app = new Vue()<br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/body><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/html>
+    </div><br><br>
+    Ensuite, nous allons configurer notre instance de Vue en lui transmettant un objet contenant notre première configuration :<br>
+    l'emplacement de la page sur laquelle Vue est installé.<br><br>
+    <div class="code">
+      <<span style="color:rgb(0, 0, 0);">.</span>!DOCTYPE html><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>html lang="fr"><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>head><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>title>Mon Application Vue.js<<span style="color:rgb(0, 0, 0);">.</span>/title><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/head><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>body><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>h1>Ma première application Vue.js !<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>p>J'ai hâte de créer des applications incroyables !<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>script src="https://cdn.jsdelivr.net/npm/vue"><<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>script><br>
+          const app = new Vue({<br>
+            el: '#app'<br>
+          })<br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/body><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/html>
+
+    </div><br><br>
+    Cet objet de configuration ne possède qu'une seule propriété : <strong>« el »</strong>, qui est l'abréviation d'element.<br>
+    Il est ensuite suivi d'un sélecteur CSS (c'est-à-dire  <div class="inner_code">#app</div>,  <div class="inner_code">div</div>,  <div class="inner_code">.app</div>).<br>
+    Utiliser un sélecteur d'ID (c'est-à-dire  <div class="inner_code">#app</div>) est considéré comme étant une bonne pratique, car votre application devra être reconnue de façon unique sur une page.<br>
+    Et, bien qu'il puisse accepter n'importe quel type de sélecteur CSS parmi ceux que vous utilisez habituellement, il ne peut pas sélectionner les éléments  <div class="inner_code"><<span style="color:rgb(206, 201, 201);">.</span>html></div>  ni  <div class="inner_code"><<span style="color:rgb(206, 201, 201);">.</span>body></div>.
+
+    <h3>Apprenez à stocker des données</h3>
+    <h4>Découvrez comment stocker les données</h4>
+    Comme pour toute autre application, nous avons besoin de stocker les données afin de pouvoir les réutiliser et effectuer des actions pour l'utilisateur.<br>
+    Dans Vue, cela se concrétise par l'ajout d'une propriété <div class="inner_code">data</div>  qui a comme valeur un objet.<br>
+    Elle peut accepter n'importe quelle paire clé - valeur classique que vous pourriez habituellement définir en JavaScript<br>
+    <figure>
+      <img src="media/2-data.png" alt="">
+      <figcaption></figcaption>
+    </figure>
+
+    <h4>Découvrez comment afficher le rendu des données</h4>
+    Lorsque nous voulons afficher nos données dans notre application web, Vue utilise la syntaxe en "moustache" (entre deux accolades) pour afficher le rendu des données.<br>
+    Elle est représentée par deux accolades, comme indiqué ci-dessous :<br>
+    <div class="code">
+      <<span style="color:rgb(0, 0, 0);">.</span>div id="#app"><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>h1>VueMart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
+      
+        <<span style="color:rgb(0, 0, 0);">.</span>h2>Panier<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>li>Pommes: {{ costOfApples }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>li>Bananes: {{ costOfBananas }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+          <<span style="color:rgb(0, 0, 0);">.</span>li>Noix de coco: {{ costOfCoconuts }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/div>
+    </div><br><br>
+
+    <div class="remarque">
+      Bien que l'espace entourant la variable dans  <div class="inner_code">{{ costOfApples }}</div>  soit optionnel,<br>
+      ce formatage est recommandé, car il facilite la lecture par rapport à l'alternative plus dense  <div class="inner_code">{{costOfApples}}</div>.
+    </div><br><br>
+    Cet exemple utilise les doubles accolades pour afficher la valeur d'une variable simplement,<br>
+    mais les doubles accolades peuvent aussi être utilisées pour afficher le rendu d'expressions JavaScript basiques.<br>
+    En voici quelques exemples :<br>
+<div class="code">
+  <<span style="color:rgb(0, 0, 0);">.</span>!-- Réaliser le calcul --><br>
+{{ (2 + 8) * 10 }}<br>
+<br>
+<<span style="color:rgb(0, 0, 0);">.</span>!-- Appeler des méthodes de string --><br>
+{{ "alexia".toUpperCase() }}<br>
+<br>
+<<span style="color:rgb(0, 0, 0);">.</span>!-- Opérateurs ternaires --><br>
+{{ 2 > 0 ? 'Deux est plus grand que zéro' : 'Vous ne verrez jamais cette phrase' }}
+</div><br><br>
+
+<h3>Entraînez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P1C2-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+  <li>Ajoutez Vue.js à  <div class="inner_code">index.html</div>  pour le convertir en application monopage.</li>
+  <li>Votre application doit avoir une propriété dans  <div class="inner_code">data</div>  appelée  <div class="inner_code">restaurantName</div>.</li>
+  <li>Le nom du restaurant doit être rendu à l'aide de la syntaxe en moustache.</li>
+</ol>
+
+<h3>En résumé</h3>
+<ul>
+  <li>installer Vue sur une page web sans l'aide d'outils de build </li>
+  <li>mettre en place une nouvelle instance de Vue</li>
+  <li>associer Vue à un élément HTML</li>
+  <li>définir un espace de stockage de données simple</li>
+  <li>afficher le rendu de données à l'aide des doubles accolades</li>
+</ul>
+
+  </body>
+  </html>
+
+
+  <div class="inner_code"></div> 
+  <h5><a href="#sommaire">Sommaire</a></h5>
+  
+    <h2 id="1">- 1 -</h2> 
+  
+    <a href="" target='_blank'></a>
+  <!--question################-->
+  
+  <div class="question"><img src="media/question-circle-regular.svg"></div><br>
+     
+    <!---insertion d'une figure avec commentaire-->
+    <figure>
+      <img src="media/" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
+    <span style="color:rgb(0, 0, 0);">.</span> <!-- point invisible code-->
+    <span style="color:rgb(206, 201, 201);">.</span> <!-- point invisible inner_code-->
+    <span style="color:rgb(140, 140, 140);"></span> <!-- commentaire -->
+    <span style="color:red;"></span> <!--Ligne à souligner dans le code################-->
+    <span class="keyboard"></span>
+      <!--########### Commandes importantes border noire ########-->
+      <strong  style="border: 2px solid black;display:inline-block;padding: 5px;"></strong><br/><br/>
+  <!--########### Tableaux double  ##########-->
+  <div class="tableau_double" style="display: flex;">
+    <strong  style="border: 2px solid black; display:inline-block; padding: 5px;">
+      <span style="color:red;border: 1px solid red;padding:2px;">Titre1</span><br/>
+      
+    </strong><br/><br/>
+    
+    <strong  style="border: 2px solid black; display:inline-block; padding: 5px;">
+      <span style="color:red;border: 1px solid red;padding:2px;">Titre2</span><br/>
+      
+      
+    </strong><br/><br/>
+  </div><br/>
+
+  
+  <!--#### Liste sans les points ######-->
+  
+  <ul style=" list-style-type: none;">
+  
+  
+  <!--############## Tableaux ############-->
+  <table>
+    <caption>Entête du tableau</caption>
+  
+    <tr>
+        <th>Titre 1</th>
+        <th>Titre 2</th>
+        <th>Titre 3</th>
+    </tr>
+    <tr>
+        <td>Donnée 1</td>
+        <td>Donnée 2</td>
+        <td>Donnée 3</td>
+    </tr>
+    <tr>
+        <td>Donnée 1</td>
+        <td>Donnée 2</td>
+        <td>Donnée 2</td>
+    </tr>
+  </table>
+  <!--############## Tableaux FIN ############-->
+  

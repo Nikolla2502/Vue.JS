@@ -1,0 +1,183 @@
+body
+{
+    margin: 5px 5px 0 20px;
+    line-height: 1.5em;
+    font-family: 'Calibri';
+    font-size:1.2rem;
+    
+}
+.title{
+  background: rgb(179, 112, 247);
+  text-align:center;
+  height:50px;
+  padding-top:20px;
+  padding-bottom:20px;
+  line-height: 30px;
+  Font-size:2.5rem;
+  font-weight:bold;
+  border: 3px solid rebeccapurple;
+}
+
+
+.content{
+  width:100%;
+  display:flex;
+  justify-content: Center;
+  font-size:1.2rem;
+}
+.sommaire{
+  width:40%;
+  border: 3px solid rebeccapurple;
+  margin:5px 5px 5px 5px;
+
+}
+.sommaire_fixed{
+
+  position:fixed;
+  padding:0.2rem;
+  top:1vh;
+  left:95%;
+  text-decoration: none;
+  border: 3px solid rebeccapurple;
+  background: rgb(179, 112, 247);
+}
+.sommaire_fixed a{
+color: white;
+}
+.sommaire h3{
+  text-align: center;
+}
+       
+.list_sommaire{
+  list-style-type: none;
+}
+
+
+a:visited
+{
+  text-decoration: none;
+  font-weight: bold;
+}
+a
+{
+    text-decoration: none;
+    color:blue;
+    font-weight: bold;
+}
+.ressources a{
+  color:red;
+  text-decoration: underline;
+  font-weight: bold;
+}
+h1,h2
+{
+    text-align: center;
+}
+h1, h2, h3, h4, h5
+{
+  text-decoration-line: underline;
+}
+h5
+{
+  font-size: 1.5em;
+}
+img
+{
+  max-height: 50%;
+  max-width: 50%;
+  border: solid 1px black;
+}
+
+
+
+.remarque
+{
+  background-color: rgb(182, 202, 231);
+  border:2px solid rgb(96, 152, 235);
+  display: inline-block;
+  padding: 5px 5px 5px 5px;
+}
+.remarque2
+{
+  border-left:7px solid rgb(129, 128, 128);
+  padding-left: 7px;
+}
+
+.question
+{
+  background-color: rgb(180, 180, 180);
+  border:2px solid rgb(51, 51, 51);
+  display: inline-block;
+  padding: 5px 5px 5px 5px;
+  margin-bottom:3px;
+}
+.question img{
+  height:25px;
+  margin:5px 5px 0 5px;
+  border:none;
+  
+}
+
+.keyboard{
+  border:solid 1px black;
+  width:auto;
+  display:inline-block;
+  padding:0 5px 0 5px;
+  border-radius:5px;
+ box-shadow:1px 1px 2px;
+ background-color:rgb(214, 212, 212);
+
+}
+.code{
+  background-color: black;
+  color:white;
+  display:inline-block;
+  padding: 5px;
+  border: solid 2px white;
+  min-width: 40%;;
+}
+strong u,.inner_code
+{
+  display: inline-block;
+
+  padding: 1px 5px 1px 5px;
+  background-color:  rgb(206, 201, 201);
+  text-decoration-line: none;
+  border: 1px solid grey;
+}
+p,.border_red
+{
+  border: 5px solid red;
+   display:inline-block;
+   padding: 10px;
+   font-weight: bold;
+}
+.important{
+  background-color: rgb(245, 155, 155);
+  border: 3px solid red;
+  display:inline-block;
+  padding: 10px;
+
+}
+
+
+table
+{
+  border-collapse: collapse;
+  border: 2px solid black;
+}
+table caption
+{
+  border: 2px solid black;
+}
+td, th
+{
+  border: 1px solid black;
+  padding: 0 5px 0 5px;
+  text-align: center;
+}
+th
+{
+  background-color:  rgb(206, 201, 201) ;
+}
+
