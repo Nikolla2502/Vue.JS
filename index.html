@@ -18,6 +18,14 @@
         <ul class="list_sommaire">  
             <li><strong><a href="#vue">1.1 Créez votre première application Vue.js</a></strong></li>
             <li><strong><a href="#store_data">1.2 Stockez et gérez des données</a></strong></li>
+            <li><strong><a href="#directive">1.3 Utilisez les directives Vue pour gérer des problèmes courants</a></strong></li>
+            <ul>
+              <li><a href='#v-if_v-show'><div class="inner_code">v-if</div>  et  <div class="inner_code">v-show</div></a></li>
+              <li><a href='#v-for'><div class="inner_code">v-for</div></a></li>
+              <li><a href='#v-bind'><div class="inner_code">v-bind</div></a></li>
+              <li><a href='#v-on'><div class="inner_code">v-on</div></a></li>
+              <li><a href='#v-model'><div class="inner_code">v-model</div></a></li>
+            </ul>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
@@ -421,9 +429,279 @@ Dans ce chapitre, vous avez découvert :
   <li>comment utiliser les propriétés calculées (<div class="inner_code">computed</div> properties) pour simplifier votre code et la gestion de vos données.</li>
 </ul>
 
+
+
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="directive">1.3 Utilisez les directives Vue pour gérer des problèmes courants</h2> 
+
+<h3>Découvrez ce qu’est une directive</h3>
+Les directives nous fournissent un moyen standard pour résoudre les problèmes courants.<br>
+Elles sont particulièrement puissantes et écrites de manière sémantique, afin que le code soit facile à comprendre.<br>
+Les directives ressemblent à des attributs HTML avec une différence principale : elles disposent toutes du préfixe  <div class="inner_code">v-</div>.<br>
+Voici quelques directives courantes que vous rencontrerez dans les applications Vue :<br>
+<ul>
+  <li><div class="inner_code">v-if</div>,<div class="inner_code">v-else-if</div>,<div class="inner_code">v-else</div> </li>
+  <li><div class="inner_code">v-show</div></li>
+  <li><div class="inner_code">v-for</div></li>
+  <li><div class="inner_code">v-bind</div></li>
+  <li><div class="inner_code">v-on</div></li>
+  <li><div class="inner_code">v-model</div></li>
+</ul>
+Dans ce chapitre, nous allons passer ces directives en revue et voir comment les utiliser pour créer des applications Vue puissantes et facilement compréhensibles par tous.
+
+<h3 id='v-if_v-show'>Conditionnez l'affichage du contenu <div class="inner_code">v-if</div>  et  <div class="inner_code">v-show</div></h3>
+L'un des scénarios les plus courants dans n'importe quelle application frontend est le besoin d'afficher ou de masquer le contenu en fonction de certaines conditions.<br>
+Par exemple, selon le niveau d'autorisation d'un utilisateur, il faudra déterminer de manière dynamique le contenu à afficher ou à ne pas afficher.<br>
+Dans Vue, deux directives principales permettent de réaliser cela :<br>
+  <div class="inner_code">v-if</div>  et  <div class="inner_code">v-show</div>.
+
+  <h4><div class="inner_code">v-if</div> ,<div class="inner_code">v-else-if</div> ,<div class="inner_code">v-else</div></h4>
+  Comme le suggèrent les mots-clés de la directive, cette dernière suit la structure de rendu conditionnel standard  <div class="inner_code">if/then</div>  de JavaScript.<br>
+  En voici un exemple simple :<br>
+  <div class="code">
+    <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+    <span style="color:rgb(140, 140, 140);"><<span style="color:rgb(0, 0, 0);">.</span>!-- Si (if) l'utilisateur a les autorisations par défaut, afficher ce qui suit --><br></span>
+      <<span style="color:rgb(0, 0, 0);">.</span>section v-if="userPermission === 'default'">...<<span style="color:rgb(0, 0, 0);">.</span>/section><br>
+      <span style="color:rgb(140, 140, 140);"><<span style="color:rgb(0, 0, 0);">.</span>!-- Sinon et si l'utilisateur a les autorisations administrateur, afficher ce qui suit --><br></span>
+      <<span style="color:rgb(0, 0, 0);">.</span>section v-else-if="userPermission === 'admin'">...<<span style="color:rgb(0, 0, 0);">.</span>/section><br>
+      <span style="color:rgb(140, 140, 140);"><<span style="color:rgb(0, 0, 0);">.</span>!-- Si l'utilisateur n'a aucune autorisation afficher ce qui suit --><br></span>
+      <<span style="color:rgb(0, 0, 0);">.</span>section v-else>...<<span style="color:rgb(0, 0, 0);">.</span>/section><br>
+      <<span style="color:rgb(0, 0, 0);">.</span>/div>
+  </div><br><br>
+<div class="important">
+  Bien qu'il ressemble à une chaîne de caractères, le texte situé entre les guillemets des directives est interprété comme du JavaScript et non comme une chaîne de caractères.
+</div>
+
+<h4>v-show</h4>
+Cette directive peut sembler très similaire à la directive  <div class="inner_code">v-if</div>  ; pourtant, les deux ne sont pas interchangeables.<br>
+<div class="inner_code">v-show</div> est généralement utilisée dans le but de contrôler la visibilité d'un élément faisant l'objet d'une permutation (toggle, en anglais) fréquente.<br>
+En voici un exemple courant :<br>
+<div class="code">
+  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>button @click="showModal = !showModal">Display Modal<<span style="color:rgb(0, 0, 0);">.</span>/button><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>div v-show="showModal" class="modal">...<<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+    <br>
+    <<span style="color:rgb(0, 0, 0);">.</span>script><br>
+        const app = new Vue({<br>
+            el: '#app',<br>
+            data: {<br>
+                showModal: false<br>
+            }<br>
+        })<br>
+    <<span style="color:rgb(0, 0, 0);">.</span>/script>
+  </div><br><br>
+  <div class="remarque">
+    Vous n’avez pas encore vu la directive <div class="inner_code">v-on</div> (abrégée <div class="inner_code">@</div>), par exemple <div class="inner_code">@click</div>.<br>
+    Ceci n’est pas gênant pour la compréhension du but du code et ne vous inquiétez pas, on voit ça juste après !
+  </div><br><br>
+  <div class="border_red">
+  La principale différence entre les deux directives est que  <div class="inner_code">v-show</div>  permute la visibilité de l'élément HTML grâce au CSS,<br>
+   alors que <div class="inner_code">v-if</div> supprime complètement l'élément du DOM.
+  </div>
+
+  <h3 id='v-for'>Bouclez sur votre contenu <div class="inner_code">v-for</div></h3>
+  On peut également citer un autre scénario courant qui consiste à devoir répéter un élément HTML.<br>
+  Dans le cas où nous récupérons des données d’une API par exemple, et que nous souhaitons afficher chaque item récupéré (un produit, un article, un commentaire…)<br>
+  la directive  <div class="inner_code">v-for</div>  permet de réaliser cette tâche.<br>
+  Elle suit la syntaxe de boucle JavaScript standard  <div class="inner_code">for ... in</div>.<br>
+  Prenons un exemple courant, le renvoi d'une liste.<br>
+  Dans notre exemple de panier d'achats, on aurait également pu écrire :<br>
+<div class="code">
+  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>h1>Vue Mart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>h2>Shopping Cart<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
+        <<span style="color:rgb(0, 0, 0);">.</span> v-for="item in shoppingCart"><br>
+            {{ item.label }} : {{ item.cost }}€<br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
+<<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+<br>
+<<span style="color:rgb(0, 0, 0);">.</span>script><br>
+    const app = new Vue({<br>
+        el: '#app',<br>
+        data: {<br>
+            shoppingCart: [<br>
+                { label: 'Pommes', cost: 6 },<br>
+                { label: 'Bananes', cost: 2 },<br>
+                { label: 'Noix de coco', cost: 8 }<br>
+            ]<br>
+        }<br>
+    })<br>
+<<span style="color:rgb(0, 0, 0);">.</span>/script>
+</div><br>
+
+<h3 id='v-bind'>Définissez des attributs HTML de façon dynamique <div class="inner_code">v-bind</div></h3>
+Vous serez très souvent tenté d'utiliser une propriété  <div class="inner_code">data</div>  pour définir l'attribut d'un élément, plutôt que de le coder en dur.<br>
+Il y a justement une directive faite exprès : la directive  <div class="inner_code">v-bind</div>.<br>
+C'est le cas, par exemple, lorsque vous effectuez une requête pour récupérer des données auprès d'une API et que vous avez besoin de renvoyer des données en fonction de ce qui est retourné.<br>
+Voici un exemple :<br>
+<div class="code">
+  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>li v-for="item in apiResponse"><br>
+            <<span style="color:rgb(0, 0, 0);">.</span>a v-bind:href="item.url">{{ item.name }}<<span style="color:rgb(0, 0, 0);">.</span>/a><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/li><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
+<<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+<br>
+<<span style="color:rgb(0, 0, 0);">.</span>script><br>
+    const app = new Vue({<br>
+        el: '#app',<br>
+        data: {<br>
+            apiResponse: [<br>
+                { name: 'GitHub', url: 'https://www.github.com' },<br>
+                { name: 'Twitter', url: 'https://www.twitter.com' },<br>
+                { name: 'Netlify', url: 'https://www.netlify.com' }<br>
+            ]<br>
+        }<br>
+    })<br>
+<<span style="color:rgb(0, 0, 0);">.</span>/script>
+</div><br><br>
+<div class="remarque">
+Vous auriez pu penser que nous pourrions faire  <div class="inner_code">< a href=”{{ item.url }}”>...< /a></div>  .<br>
+Cependant, si vous faites ça, vous aurez dans le dur en HTML  <div class="inner_code">< a href=”{{ item.url }}”>...< /a></div>  et non pas  <div class="inner_code">< a href=”https://github.com”>...< /a></div>  par exemple.<br>
+La directive  <div class="inner_code">v-bind</div>  est couramment utilisée via son abréviation   <div class="inner_code">:</div>  .<br>
+En d'autres termes, au lieu d'écrire  <div class="inner_code">v-bind:href="item.url"</div>, on écrit généralement plutôt  <div class="inner_code">:href="item.url"</div>.
+</div>
+
+<h3 id='v-on'>Écoutez des événements et répondez-y <div class="inner_code">v-on</div></h3>
+Lorsque vous souhaitez écouter certains événements sur un élément, Vue vous facilite la tâche avec la directive  <div class="inner_code">v-on</div>.<br>
+Voici un exemple simple :<br>
+<div class="code">
+  < div id="app"><br>
+    < button v-on:click="alert('Bonjour')">Cliquez ici !< /button><br>
+< /div>
+</div><br><br>
+<div class="remarque">
+  La directive  <div class="inner_code">v-on</div>  est couramment utilisée via son abréviation <div class="inner_code">@</div>.<br>
+  Au lieu d'écrire  <div class="inner_code">v-on:click="alert('Bonjour')"</div>, on écrit généralement plutôt  <div class="inner_code">@click="alert('Bonjour')"</div>.
+</div><br><br>
+Cependant, nous aurons souvent besoin d'appeler des fonctions bien plus complexes qu'une seule ligne de JavaScript.<br>
+Et c'est là que les méthodes entrent en jeu.<br>
+Les méthodes vous permettent de définir des fonctions auxquelles votre application Vue aura accès.<br>
+Elles sont définies comme la propriété  <div class="inner_code">data</div>.<br>
+<div class="code">
+  const app = new Vue({<br>
+    el: '#app',<br>
+    data: {<br>
+        favoriteColor: 'bleu'<br>
+    },<br>
+    computed: {<br>
+        label() {<br>
+            return ': ' + this.favoriteColor<br>
+        }<br>
+    },<br>
+    methods: {<br>
+        alertColor(color) {<br>
+            alert('Ma couleur préférée est ' + color)<br>
+        },<br>
+        changeColor() {<br>
+            console.log('Je veux changer ma couleur préférée !')<br>
+        }<br>
+    }<br>
+})
+</div><br><br>
+Comme vous pouvez le constater, il faut un objet qui est en fait une fonction JavaScript standard.<br>
+Cependant, vous voudrez parfois interagir avec des propriétés gérées dans Vue (c'est-à-dire, data, calculées, etc.).<br>
+Tout comme vous désigneriez des propriétés  <div class="inner_code">data</div>  dans des valeurs calculées en les préfixant avec  <div class="inner_code">this</div>, vous ferez la même chose ici !<br>
+<div class="code">
+  const app = new Vue({<br>
+    el: '#app',<br>
+    data: {<br>
+        favoriteColor: 'bleu'<br>
+    },<br>
+    computed: {<br>
+        label() {<br>
+            return ': ' + this.favoriteColor<br>
+        }<br>
+    },<br>
+    methods: {<br>
+        alertColor(colorLabel) {<br>
+            alert('Ma couleur préférée ' + colorLabel)<br>
+        },<br>
+        changeColor() {<br>
+          <span style="color:rgb(140, 140, 140);">// Change la propriété data</span> <br>
+            this.favoriteColor = 'turquoise'<br>
+            <span style="color:rgb(140, 140, 140);">// Appelle une méthode différente et passe une propriété calculée</span> <br>
+            this.alertColor(this.label)<br>
+        }<br>
+    }<br>
+})
+</div><br><br>
+<h3 id='v-model'>Mettez à jour les données dans des formulaires <div class="inner_code">v-model</div></h3>
+Lorsque l'on travaille avec des formulaires, on préfère mettre à jour le data store en conséquence.<br>
+Cela nous permet d'effectuer des tâches telles que lancer une validation, des calculs, etc.<br>
+Même s'il est possible de réaliser cela manuellement avec une directive  <div class="inner_code">v-on</div>  avec  <div class="inner_code">v-bind</div>,<br>
+Vue fournit un moyen standard pour accomplir cette tâche avec  <div class="inner_code">v-model</div>.<br><br>
+Cela vous permet de définir la propriété  <div class="inner_code">data</div>  que vous souhaitez mettre à jour lorsque l'utilisateur interagit avec un formulaire.<br><br>
+Voici un exemple :<br>
+<div class="code">
+  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>label for="username">Nom d'utilisateur<<span style="color:rgb(0, 0, 0);">.</span>/label><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>input id="username" type="text" v-model="username" /><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>label for="pw">Mot de passe<<span style="color:rgb(0, 0, 0);">.</span>/label><br>
+    <<span style="color:rgb(0, 0, 0);">.</span>input id="pw" type="password" v-model="password" /><br>
+<<span style="color:rgb(0, 0, 0);">.</span>/div><br>
+<br>
+<<span style="color:rgb(0, 0, 0);">.</span>script><br>
+    const app = new Vue({<br>
+        el: '#app',<br>
+        data: {<br>
+            username: '',<br>
+            password: ''<br>
+        }<br>
+    })<br>
+<<span style="color:rgb(0, 0, 0);">.</span>/script>
+</div><br><br>
+Maintenant, à chaque fois que l'utilisateur saisira des données dans les inputs correspondants, le data store sera mis à jour en conséquence !
+
+<h3>Entraînez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P1C4-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+  <li>Utilisez la directive  <div class="inner_code">v-for</div>  pour afficher tous les éléments de simpleMenu</li>
+  <li>Utilisez la directive  <div class="inner_code">v-if</div>  pour indiquer si un article est "En stock" ou "En rupture de stock".</li>
+  <li>Utilisez la directive  <div class="inner_code">v-bind</div>  pour rendre dynamiquement chaque image du menu et remplir son texte  <div class="inner_code">alt</div>.</li>
+  <li>Utilisez la directive  <div class="inner_code">v-on</div>  pour augmenter le total du panier lors de l'ajout d'un article du menu avec une fonction définie dans les méthodes appelées <div class="inner_code">addToShoppingCart</div>.</li>
+  <li>Utiliser <div class="inner_code">v-model</div> pour permettre à l'utilisateur de mettre à jour le nombre d'articles qu'il souhaite mettre lorsqu'il fait un ajout au panier.</li>
+</ol>
+
+<h3>En résumé</h3>
+Vous avez acquis les compétences nécessaires pour utiliser les directives dans le but de :
+<ul>
+  <li>afficher et masquer du contenu ;</li>
+  <li>réaliser une boucle à travers une liste de données et afficher le rendu de son contenu ;</li>
+  <li>mettre à jour des attributs HTML de façon dynamique ;</li>
+  <li>écouter des événements auxquels vous pouvez répondre ;</li>
+  <li>créer des fonctions JavaScript que Vue.js peut utiliser ;</li>
+  <li>configurer des formulaires pour que votre data store soit mis à jour au fur et à mesure que l'utilisateur interagit avec lui.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </body>
   </html>
 
+
+
+
+  
 
   <div class="inner_code"></div> 
   <h5><a href="#sommaire">Sommaire</a></h5>
