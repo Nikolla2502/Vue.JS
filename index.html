@@ -26,7 +26,7 @@
               <li><a href='#v-on'><div class="inner_code">v-on</div></a></li>
               <li><a href='#v-model'><div class="inner_code">v-model</div></a></li>
             </ul>
-            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#vuecli">2.1 Créez un nouveau projet avec Vue CLI</a></strong></li>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
@@ -36,8 +36,8 @@
       <div class="sommaire">
         <h3>- Ressource -</h3>
         <ul class="list_sommaire">
-          <li><a href="" target="_blank"></a></li>
-          <li><a href="" target="_blank"></a></li>
+          <li><a href="https://cli.vuejs.org/guide/creating-a-project.html" target='_blank'>Vue CLI</a></li>
+          <li><a href="https://github.com/vuejs/devtools" target='_blank'>Vue DevTools</a></li>
           <li><a href="" target="_blank"></a></li>
           <li><a href="" target="_blank"></a></li>
           <li><a href="" target="_blank"></a></li>
@@ -682,18 +682,201 @@ Vous avez acquis les compétences nécessaires pour utiliser les directives dans
 </ul>
 
 
+    <h5><a href="#sommaire">Sommaire</a></h5>
+      
+    <h2 id="vuecli">2.1 Créez un nouveau projet avec Vue CLI</h2>
 
+    <h3>Installez Vue CLI</h3>
+    Pour commencer à utiliser la CLI de Vue, la version de Node 8.9 ou supérieure est nécessaire (v8.11.0 ou + est recommandée).<br>
+    L'installation sur votre machine se fait en mettant cette ligne dans votre terminal (ou Windows PowerShell si vous êtes sur Windows) :<br>
+    <div class="code">
+      npm install -g @vue/cli<br>
+      # OU (selon si vous avez l’habitude d’utiliser npm ou yarn)<br>
+      yarn global add @vue/cli
+    </div><br><br>
+    Une fois l'installation terminée, vous devriez être en mesure d'exécuter :<br>
+    <div class="code">
+      vue --version<br>
+      # 4.x
+    </div><br><br>
+    Lorsque votre terminal affiche une version 3.x ou 4.x, cela signifie que Vue CLI a été installé avec succès !
 
+    <h3>Créez un nouveau projet</h3>
+    Créer un nouveau projet avec Vue CLI est une opération simple.<br>
+    Lançons-nous et créons un projet ensemble :<br>
+    <div class="code">
+      vue create my-first-vue-cli-app
+    </div><br><br>
+    Vous devriez être invité à choisir un preset ( vous pouvez le traduire par "préréglage") :<br>
+    <figure>
+      <img src="media/5-vuecli.png" alt="">
+      <figcaption>Exemple de preset que vous verrez en utilisant la commande Vue create</figcaption>
+    </figure><br><br>
+    Un preset correspond aux options préconfigurées installées automatiquement avec chaque application.<br>
+    Comme votre installation de Vue CLI est nouvelle, vous verrez qu'elle ne dispose que d'un preset par défaut (Babel, ESLint),<br>
+    ainsi que d'une option permettant de sélectionner les fonctionnalités manuellement.<br>
+    Pour parcourir l'ensemble des configurations de Vue CLI,<br>
+    utilisez la touche "flèche vers le bas" pour déplacer la sélection,<br>
+    et appuyez sur <div class="keyboard">Entrée</div> pour choisir notre sélection.<br><br>
+    <div class="remarque">
+      Pour naviguer dans l'outil Vue CLI, vous devez utiliser :
+      <ul>
+        <li>les touches fléchées pour la direction ;</li>
+        <li>la touche Retour/Entrée pour choisir votre option ;</li>
+        <li>la barre d'espace pour sélectionner une option parmi les inputs de type "checkbox".</li>
+      </ul>
+    </div><br><br>
+    <figure>
+      <img src="media/6-vuecli.png" alt="">
+      <figcaption>Liste des choix possibles quand vous choisissez de configurer votre app manuellement</figcaption>
+    </figure><br><br>
+    Une fois que vous avez choisi « Manually select features » (sélectionner les fonctionnalités manuellement),<br>
+    l'écran d'accueil suivant devrait apparaître :<br>
+    <figure>
+      <img src="media/7-vuecli.png" alt="">
+      <figcaption>Lorsque vous choisissez CSS preprocessors, le cercle devient vert pour vous indiquer qu'il est sélectionné</figcaption>
+    </figure><br><br>
 
+    <div class="remarque">
+      Par ailleurs, vous avez peut-être également remarqué que vous pouvez mettre en place vos outils de tests d'intégration à cet endroit.<br>
+      Même si nous n'aborderons pas les tests à proprement parler dans ce cours,<br>
+      je recommanderais les bibliothèques Jest pour les tests unitaires et Cypress pour les tests end-to-end (e2e).
+    </div><br><br>
+    Les options présentées ici dépassent certes le cadre de ce cours,<br>
+    mais vous pouvez voir qu'il existe de nombreuses options pour configurer vos projets.<br>
+    Passons maintenant au préprocesseur CSS.
+    <ol>
+      <li>Il vous sera utile si vous souhaitez activer le « mode historique » pour le routeur. Tapez  <div class="inner_code">n</div>  et appuyez sur la touche <div class="keyboard">Retour</div>.</li>
+      <li>Pour notre préprocesseur CSS, nous choisirons  <div class="inner_code">Sass/SCSS (with node-sass)</div></li>
+      <li>Pour notre linter, nous choisirons  <div class="inner_code">ESLint with error prevention only</div></li>
+      <li>Pour la configuration de lint, choisissez <div class="inner_code">Lint on save</div></li>
+      <li>Pour l'emplacement souhaité de la configuration, choisissez <div class="inner_code">In dedicated config files</div></li>
+    </ol>
+    Vous disposez également d'une option permettant de sauvegarder cette configuration pour de futures applications,<br>
+    mais comme il s'agit d'une configuration temporaire,<br>
+    nous allons saisir  <div class="inner_code">n</div>  pour que notre configuration ne soit pas sauvegardée comme preset.<br><br>
+    <div class="remarque">
+      Vous n’avez pas tout ça qui s’affiche ?<br>
+      Pas de soucis, en utilisant le GUI, peut-être que ce sera plus simple pour vous (voir juste après Vue UI).
+    </div><br><br>
+    Votre terminal va maintenant commencer à installer tous les paquets nécessaires pour la CLI.<br>
+    Les réglages de terminal diffèrent légèrement d'un utilisateur à l'autre, mais une fois que vous voyez quelque chose comme :<br><br>
+    <div class="code">
+      [1/4] 🔍  Resolving packages...<br>
+      [2/4] 🚚  Fetching packages...<br>
+      [3/4] 🔗  Linking dependencies...<br>
+      [4/4] 🔨  Building fresh packages...<br>
+      success Saved lockfile.<br>
+      ✨  Done in 220.83s.<br>
+      ⚓  Running completion hooks...<br>
+       <br>
+      📄  Generating README.md...<br>
+       <br>
+      🎉  Successfully created project my-first-vue-cli-app.<br>
+      👉  Get started with the following commands:<br>
+       <br>
+      $ cd my-first-vue-cli-app<br>
+      $ npm run serve
+    </div><br><br>
+    <div class="remarque">
+      Vue CLI dispose également d'une interface utilisateur très performante et agréable à utiliser lancée en local.<br>
+      Cette interface dispose d'une version en français pour celles et ceux qui préfèrent.<br>
+      Vous pouvez la lancer avec la commande  <div class="inner_code">vue ui</div>.<br>
+      <figure>
+        <img src="media/8-vuecli.png" alt="">
+        <figcaption></figcaption>
+      </figure><br>
+      Pour en savoir plus, consultez la <a href="https://cli.vuejs.org/guide/creating-a-project.html" target='_blank'>documentation</a>. 
+    </div>
 
+    <h3>Découvrez l’architecture d’une application Vue CLI</h3>
+    Lorsque vous ouvrez votre nouveau projet, <div class="inner_code">my-first-vue-cli-app</div>,<br>
+    dans votre éditeur de code, vous devriez voir quelque chose semblable à ce qui suit.<br><br>
+    Le principal contenu à connaître est le suivant :
+    <ul>
+      <li><strong>node_modules :</strong><br>
+        contient l'ensemble des dépendances qui permettent à votre application de faire tout ce qu'elle fait.<br>
+        Vous n'aurez que rarement (sinon jamais) besoin d'aller dans ce dossier, car il n'est généralement pas attaché au repository, mais directement géré par npm ;
+      </li>
+      <li><strong>public :</strong><br>
+        ce répertoire contient le <div class="inner_code">favicon.ico</div> et le fichier  <div class="inner_code">index.html</div>  de base qui serviront à générer le reste de votre application ;
+      </li>
+      <li><strong>src :</strong><br>
+        ce répertoire est celui dans lequel vous passerez 99 % de votre temps, car la quasi-totalité de votre code y sera située ;
+      </li>
+      <li><strong>.gitignore :</strong><br>
+        ce fichier contient une liste de fichiers et/ou de répertoires qui ne seront pas attachés à un repository.<br>
+        Citons ici deux exemples courants avec le répertoire  <div class="inner_code">/dist</div>, qui est généré de manière automatique à chaque build (et ne nécessite donc aucun suivi),<br>
+        et le répertoire  <div class="inner_code">node_modules</div>, qui est automatiquement recréé à chaque lancement de la commande  <div class="inner_code">npm install</div>  ou <div class="inner_code">yarn install</div>;
+      </li>
+      <li><strong>package.json :</strong><br>
+        il s'agit du fichier de configuration de base de votre projet.<br>
+        Il comprend des métadonnées comme le nom et la version de votre projet,<br>
+        mais il contient également des informations essentielles comme les scripts pouvant être exécutés (comme serve, build, lint) et les dépendances requises pour votre projet :
+        <ul>
+          <li><strong>serve :</strong><br>
+            il s'agit du script qui permet de lancer une environnement de développement en local,
+          </li>
+          <li><strong>build :</strong><br>
+            ce script permet de créer la version finale qui sera livrée à un client ou à l'utilisateur.
+          </li>
+        </ul>
+      </li>
+      Continuons et ouvrons ensuite le répertoire <strong>src</strong> :
+      <li><strong>Assets :</strong><br>
+        il s'agit du répertoire dans lequel vous placerez les images et les autres ressources obligatoires auxquelles vous devrez peut-être faire référence dans votre application (c'est-à-dire les vidéos, les documents PDF, etc.).
+      </li>
+      <li><strong>Components :</strong><br>
+        ce répertoire contiendra les composants de notre application.<br>
+        Si vous ne savez pas encore ce que sont les composants, ne vous inquiétez pas.<br>
+        Je traiterai ce sujet dans le prochain chapitre !
+      </li>
+      <li><strong>main.js :</strong><br>
+        c'est ici que sont définies les options de configuration plus high-level de Vue.<br>
+        Ce fichier peut sembler légèrement différent de ce à quoi nous sommes habitués,<br>
+        mais l'instanciation d'une nouvelle application Vue devrait ressembler à ce que nous avons fait précédemment.
+      </li>
+    </ul>
+    En regardant cette liste, vous avez peut-être remarqué que j'ai omis un fichier important : <div class="inner_code">App.vue</div>.<br>
+    Nous sommes en effet sur le point de nous plonger dans l'un des aspects les plus intéressants de Vue : les composants monofichiers.<br><br>
+    Avant de passer au chapitre suivant, retournons dans le terminal et testons :<br>
+    <div class="code">
+      npm run serve
+    </div><br><br>
+    Cette commande lance un environnement de développement local (généralement à l'adresse <div class="inner_code">http://localhost:8080</div>) qui vous permet de voir et d'interagir avec les changements dans votre application au fur et à mesure que vous codez.<br>
+    C'est l'un des meilleurs outils créés pour les développeurs web, et la plupart ne peuvent pas imaginer la vie sans lui !<br><br>
+    Une fois que vous êtes dans votre environnement de développement local,<br>
+    je vous recommande vivement de consulter <a href="https://github.com/vuejs/devtools" target='_blank'>Vue DevTools</a>, qui est une véritable boîte à outils pour les développeurs utilisant Vue.<br>
+    Elle nous aide à créer des super applications Vue<br><br>
+<div class="remarque">
+  Une fois que cette commande est lancée, le serveur sera toujours accessible.<br>
+  Dès que vous voulez couper cette connexion, exécutez la combinaison de touches suivantes dans votre console : <div class="inner_code">Ctrl + C</div>.
+</div>
 
+<h3>Entraînez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P2C1-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+  <li>Créer un nouveau projet avec Vue CLI qui est appelé cli-version avec la configuration suivante :
+    <ul>
+      <li>Préprocesseur CSS (Sass/SCSS) avec node-sass.</li>
+      <li>ESLint avec prévention des erreurs uniquement.</li>
+      <li>Lint on Save.</li>
+      <li>Dans des fichiers de configuration dédiés.</li>
+      <li>Ne pas enregistrer comme un preset.</li>
+    </ul>
+  </li>
+</ol>
 
-
-
-
-
-
-
+<h3>En résumé</h3>
+Dans ce chapitre, vous avez appris :
+<ul>
+  <li>comment installer Vue CLI ;</li>
+  <li>comment créer une nouvelle application Vue avec Vue CLI ;</li>
+  <li>comment configurer une application Vue avec Vue CLI ;</li>
+  <li>comment sont structurées les applications générées par Vue CLI.</li>
+</ul>
 
   </body>
   </html>
