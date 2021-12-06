@@ -27,7 +27,7 @@
               <li><a href='#v-model'><div class="inner_code">v-model</div></a></li>
             </ul>
             <li><strong><a href="#vuecli">2.1 Créez un nouveau projet avec Vue CLI</a></strong></li>
-            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#composants_monofichiers">2.2 Facilitez la maintenance grâce aux composants monofichiers</a></strong></li>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
@@ -878,13 +878,160 @@ Dans ce chapitre, vous avez appris :
   <li>comment sont structurées les applications générées par Vue CLI.</li>
 </ul>
 
+    <h5><a href="#sommaire">Sommaire</a></h5>
+      
+    <h2 id="composants_monofichiers">2.2 Facilitez la maintenance grâce aux composants monofichiers</h2>
+    <h3>Appréhendez le problème de la complexité</h3>
+    Lors de la création d'un site web, nous sommes très souvent amenés à répéter notre code et cela rend souvent la maintenance un peu difficile.<br>
+    Par exemple, la plupart des sites web ont un menu de navigation sur chaque page.<br><br>
+
+    <figure>
+      <img src="media/9-vue_nav.png" alt="">
+      <figcaption></figcaption>
+    </figure><br>
+    Bien que cela soit assez simple à gérer sur une seule page, imaginez ce qui se passerait si quelqu'un devait modifier les liens de navigation.<br>
+    Si vous deviez mettre à jour la classe CSS pour actualiser les styles, cela nécessiterait au moins trois lignes de modifications de code pour chaque page qui utilise cette navigation.<br>
+    Par conséquent, cela crée de nombreuses possibilités de bugs.<br><br>
+    Bien que cela soit assez simple à gérer sur une seule page, imaginez ce qui se passerait si quelqu'un devait modifier les liens de navigation.<br>
+    Si vous deviez mettre à jour la classe CSS pour actualiser les styles,<br>
+    cela nécessiterait au moins trois lignes de modifications de code pour chaque page qui utilise cette navigation.<br>
+    Par conséquent, cela crée de nombreuses possibilités de bugs.
+    <h3>Découvrez la solution : les composants</h3>
+    Pour résoudre ce problème, le concept de composants a été popularisé.<br>
+    Ils permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable.<br><br>
+    <div class="remarque">
+      L'architecture basée sur les composants est l'un des éléments les plus importants du développement frontend,<br>
+      car c'est elle qui fournit les bases pour des applications scalables (c'est-à-dire qui peuvent être déployées à une grande échelle) et maintenables.<br>
+      Prenons un exemple pour voir comment les composants fonctionnent.
+    </div><br><br>
+    Les composants monofichiers vous permettent de créer des éléments HTML personnalisés qui encapsulent leur comportement d'une manière facilement maintenable.<br>
+    Ils constituent l'une des meilleures caractéristiques de Vue et peuvent être identifiés par leur extension <div class="inner_code">.vue</div>.<br>
+    Ils sont composés de trois blocs primaires :
+
+    <ul>
+      <li><strong>Script</strong>: où vit votre JavaScript ;</li>
+      <li><strong>Template</strong>: où vit votre HTML ;</li>
+      <li><strong>Style</strong>: où vit votre CSS.</li>
+    </ul><br><br>
+    Commençons par créer un exemple simple dans notre répertoire de composants :<br>
+    <!-- <div class="code">
+      <span style="color:rgb(140, 140, 140);">// ./components/HomeLink.vue</span><br>
+        <<span style="color:rgb(0, 0, 0);">.</span>script><br>
+        export default {<br>
+          name: 'HomeLink'<br>
+        }<br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
+        <br>
+        <<span style="color:rgb(0, 0, 0);">.</span>template><br>
+          < a href="/">Accueil< /a> <br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/template><br>
+        <br>
+        <<span style="color:rgb(0, 0, 0);">.</span>style><br>
+          a {<br>
+            text-decoration: none;<br>
+          }<br>
+        <<span style="color:rgb(0, 0, 0);">.</span>/style>
+    </div><br><br> -->
+    <figure>
+      <img src="media/10-components.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
+    Les composants monofichiers vous permettent d'encapsuler votre logique, votre contenu et vos styles de façon à faciliter leur maintenance et leur évolution.<br>
+    Vous tirerez également parti des meilleures pratiques, puisque le processus de construction séparera votre code en packages corrects au moment du build.<br>
+
+    <h3>Utilisez les composants monofichiers</h3>
+    Nous allons remanier notre exemple de navigation en utilisant notre nouveau composant dans Vue.<br>
+    Allez dans <div class="inner_code">App.vue</div> et tapez :<br>
+    <figure>
+      <img src="media/11-components_monofichier.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
+    Revoyons ce qui vient de se passer :
+    <ol>
+      <li>J'ai importé le composant  <div class="inner_code">HomeLink</div>  en utilisant l'importation ES6.</li>
+      <li>J'ai enregistré le composant via la propriété  <div class="inner_code">components</div>, qui prend un objet comme valeur avec des paires clé-valeur pour enregistrer les composants<br>
+        (dans l'exemple, j'utilise la notation abrégée ES6 pour définir les paires clé-valeur des objets.<br>
+        En ne définissant la valeur que comme une seule variable, JavaScript comprend qu'il faut la décomposer en :<br>
+         <div class="inner_code">"HomeLink" : Homelink</div>).</li>
+      <li>Enfin, j'ai remplacé toutes les références de  <div class="inner_code">< a href="/">Home< /a></div>  par notre nouveau composant  <div class="inner_code">< HomeLink /></div>.</li>
+    </ol>
+    Cette action est très puissante, car toutes les modifications que vous souhaitez apporter au lien d'accueil peuvent maintenant être faites à partir d'un seul endroit.<br>
+    Et une fois que vous aurez fait ce changement, il sera appliqué automatiquement au reste de la page.
+    <h3>Gérez la communication entre vos composants : les props</h3>
+    Bien que l'exemple ci-dessus soit utile car il peut être réutilisé, il est plutôt limité puisqu'il comporte une URL et un texte codés en dur.<br>
+    Imaginez si vous pouviez configurer les composants.<br>
+    Eh bien, c'est possible grâce aux <div class="inner_code">props</div>:<br>
+    <div class="inner_code">props</div>  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template.<br>
+    Prenons l'exemple de notre composant <div class="inner_code">HomeLink</div> et transformons-le en un composant plus générique : <div class="inner_code">NavLink</div>.<br>
+    <figure>
+      <img src="media/12-components_props.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
+    Nous définissons deux  <div class="inner_code">props</div>  pour notre nouveau composant :
+    <ul>
+      <li><div class="inner_code">url</div> : qui alimentera notre attribut href ;</li>
+      <li><div class="inner_code">text</div> : qui remplira le texte qui vit dans la balise  anchor.</li>
+    </ul>
+    Il sera utilisé comme ceci :<br>
+    <figure>
+      <img src="media/13-components_props_navlink.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
+    Avec ce refactoring, notre application est plus facile à maintenir puisqu'il n'y a qu'un seul fichier qui contient toutes les configurations dont nous avons besoin.<br>
+    Elles seront ensuite appliquées dans toute notre application.<br>
+    En d'autres termes, une fois que nous aurons apporté une modification à ce fichier, elle sera appliquée de manière uniforme dans le reste de l'application.
+
+    <h3>Exercez-vous</h3>
+    Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+    Pour commencer, consultez la branche  <div class="inner_code">P2C2-Begin</div>.
+    <h4>Instructions</h4>
+    <ol>
+      <li>Créer un nouveau projet avec Vue CLI qui est appelé cli-version avec la configuration suivante :
+        <ul>
+          <li>Migrez le contenu de  <div class="inner_code">index.html</div>  vers  <div class="inner_code">cli-version/src/App.vue</div></li>
+          <li>Migrez le répertoire des  <div class="inner_code">images</div>  vers  <div class="inner_code">cli-version/public</div></li>
+          <li>Mettez à jour le chemin (path) des images dans  <div class="inner_code">simpleMenu</div>  pour qu'il soit relatif et non plus absolu (en supprimant le  <div class="inner_code">.</div>  qui préfixe l'URL).</li>
+          <li>Créez un composant pour  MenuItem.vue  et migrez les éléments (items) du menu.</li>
+          <li>Utilisez des props pour vous assurer que les données de  <div class="inner_code">MenuItem</div>  sont toujours correctement rendues et qu'elles peuvent toujours mettre à jour le total du panier (astuce : vous pouvez transmettre des fonctions dans les props).</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>En résumé</h3>
+    Dans ce chapitre, vous avez appris à :
+<ul>
+  <li>
+identifier des composants sur une page web ;
+  </li>
+  <li>
+    créer des composants avec des composants monofichiers ;
+  </li>
+  <li>
+    utiliser des composants dans d'autres composants ;
+  </li>
+  <li>
+    transférer des données dans des composants avec les props.
+  </li>
+</ul>
+    
+
+
+    
+    
+    
+    
+    
+ 
+
+
+
+    
   </body>
   </html>
 
 
 
 
-  
 
   <div class="inner_code"></div> 
   <h5><a href="#sommaire">Sommaire</a></h5>
