@@ -28,7 +28,7 @@
             </ul>
             <li><strong><a href="#vuecli">2.1 Créez un nouveau projet avec Vue CLI</a></strong></li>
             <li><strong><a href="#composants_monofichiers">2.2 Facilitez la maintenance grâce aux composants monofichiers</a></strong></li>
-            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#vue_router">2.3 Gérez la navigation de votre application avec le routeur Vue</a></strong></li>
             <li><strong><a href="#"></a></strong></li>
             <li><strong><a href="#"></a></strong></li>
         </ul>
@@ -1015,15 +1015,99 @@ identifier des composants sur une page web ;
 </ul>
     
 
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
 
-    
-    
-    
-    
-    
- 
+<h2 id="vue_router">2.3 Gérez la navigation de votre application avec le routeur Vue</h2> 
+    <h3>Créez le routage de votre application monopage</h3>
+    Comme nous l'avons vu précédemment, le terme « Applications monopages » (SPA) indique qu'une seule page est chargée.<br>
+    Cette dernière est ensuite mise à jour dynamiquement en fonction des besoins.<br>
+    Bien que cela soit puissant, il y a tout de même un défaut principal : les utilisateurs ont besoin d'URL différentes pour distinguer les différentes pages les unes des autres.<br>
+    Sinon, à chaque fois qu'un utilisateur essaie de revenir en arrière, il obtiendra toujours la même page !<br><br>
+    Pour résoudre ce problème, tous les grands frameworks disposent d'une solution de routage.<br>
+    La solution recommandée par Vue est la bibliothèque officielle <a href="https://github.com/vuejs/vue-router" target='_blank'>vue-router</a>.
+    <h3>Installez Vue Router</h3>
+    Pour ajouter Vue Router à notre application, nous utiliserons Vue CLI :<br>
+    <div class="code">vue add router</div>
+    Une fois l'installation terminée, vous devriez observer que la CLI a modifié un certain nombre de fichiers afin de s'assurer que tout fonctionne correctement.<br>
+    Si vous ouvrez votre fichier  <div class="inner_code">main.js</div>, vous verrez que Vue CLI a automatiquement configuré la propriété Router en la rattachant à votre instance de Vue.<br>
+    De plus, un nouveau fichier est apparu, essentiel à la compréhension du routage :  <div class="inner_code">router/index.js</div>.
 
+    <h3>Découvrez l’anatomie du routeur</h3>
+    Lorsque vous ouvrez le fichier <div class="inner_code">router/index.js</div> dans votre éditeur de code, vous devriez voir quelque chose de similaire à ceci :<br>
+    <figure>
+      <img src="media/14-router_vue.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
+    Ici, les routes de notre application Vue sont définies via un tableau contenant des objets qui définissent chaque route.<br>
+    Chaque objet route contient trois propriétés clés :
+    <ul>
+      <li><strong>path (chemin)</strong> : l'URL correspondant au composant ;</li>
+      <li><strong>name (nom)</strong> : le nom de cette route pour l'étiquetage et le débuggage ;</li>
+      <li><strong>component (composant)</strong> : le composant qui doit s'afficher lorsque le path est trouvé.</li>
+    </ul>
+    
+    <h3>Comprenez le fonctionnement de Vue Router</h3>
+    Il existe deux composants principaux que Vue Router utilise et que vous devrez apprivoiser pour vos applications :<br>
+<ul>
+  <li><div class="inner_code">< router-view>< /router-view></div> :<br>
+    il définit la zone de la page dans laquelle apparaîtra le composant que nous définissons dans chaque route.<br>
+    Il est particulièrement important si vous imbriquez des vues les unes dans les autres ;</li>
+  <li><div class="inner_code">< router-link>< /router-link></div> :<br>
+    similaire à la balise  <div class="inner_code">a </div>(anchor)  en HTML, ce composant permet également la navigation de l'utilisateur dans l'application.<br>
+    Cependant, il est privilégié par rapport à l'utilisation d'une balise d'ancrage standard, car il dispose de fonctionnalités intégrées, comme le fait qu'il évite de recharger systématiquement la page.</li>
+</ul>
+Ces deux composants constituent la base de l'utilisation de Vue Router dans nos composants.<br>
+Ils facilitent la navigation dans une application Vue.
 
+<h3>Créez des routes dynamiques</h3>
+Vous devrez parfois faire correspondre un modèle d'URL à une page spécifique.<br>
+Par exemple, revenons à notre application de marché.<br>
+Vous souhaitez avoir une page individuelle pour chaque élément du menu, mais vous souhaitez utiliser une même page <div class="inner_code">ItemDetail.vue</div> pour voir le détail de l'élément.<br>
+Pour cela, vous avez besoin que la route passe l'information de manière dynamique.
+Vue Router règle ce problème en permettant le <strong>matching de route dynamique</strong>.<br>
+Dans l'exemple que nous venons d'expliquer, vous pourriez configurer votre route de la façon suivante :<br>
+<figure>
+  <img src="media/15-router_vue_dynamic.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="remarque">
+  La variable dynamique qui pourra être modifiée dans l'URL est marquée par deux-points. 
+</div><br><br>
+Cela permet ensuite au composant  <div class="inner_code">ItemDetail</div>  d'extraire les paramètres à utiliser :<br>
+<figure>
+  <img src="media/16-router_vue_dynamic.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+Par conséquent, lorsque nous nous rendons à l'URL :  <div class="inner_code">http://localhost:8080/item/croissant</div>, notre page affiche :<br>
+<figure>
+  <img src="media/17-router_vue_dynamic.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+
+<h3>Entrainez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P2C3-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+
+      <li>Sauvegardez temporairement le contenu de  <div class="inner_code">App.vue</div>  dans un fichier séparé car il sera écrasé par l'installation.</div></li>
+      <li>Ajoutez le plugin  <div class="inner_code">vue-router</div>  à l'application et n'activez pas le mode historique lors de l'installation (<div class="inner_code">Use history mode for router? =>  N</div>).</div></li>
+      <li>Migrez les données temporairement sauvegardées de l'ancienne  <div class="inner_code">App.vue</div>  vers  <div class="inner_code">Home.vue</div></li>
+      <li>Créez une route statique pour la page de contact à l'url  <div class="inner_code">/contact</div></li>
+      <li>Migrez les coordonnées de  <div class="inner_code">Home.vue</div>  vers  <div class="inner_code">Contact.vue</div></li>
+      <li>Ajoutez le lien du routeur de contact à  <div class="inner_code">App.vue</div></li>
+      <li>Activez le mode historique dans la configuration de votre routeur.</li>
+
+</ol>
+<h3>En résumé</h3>
+Le routage peut être un peu difficile à mettre en place, mais vous savez maintenant :
+<ul>
+  <li> installer Vue Router sur votre application Vue CLI sans le mode history ;</li>
+  <li>configurer des routes ;</li>
+  <li>utiliser  <div class="inner_code">router-view</div> et <div class="inner_code">router-link</div> pour gérer le routage ;</li>
+  <li>utiliser le matching dynamique de route pour vos pages personnalisées.</li>
+</ul>
 
     
   </body>
