@@ -30,13 +30,14 @@
             <li><strong><a href="#composants_monofichiers">2.2 Facilitez la maintenance grâce aux composants monofichiers</a></strong></li>
             <li><strong><a href="#vue_router">2.3 Gérez la navigation de votre application avec le routeur Vue</a></strong></li>
             <li><strong><a href="#execute_code">2.4 Déterminez quand votre code doit s’exécuter</a></strong></li>
-            <li><strong><a href="#"></a></strong></li>
+            <li><strong><a href="#style">3.1 Gérez les styles de votre application</a></strong></li>
         </ul>
       </div>
       <div class="sommaire">
         <h3>- Ressource -</h3>
         <ul class="list_sommaire">
           <li><a href="https://cli.vuejs.org/guide/creating-a-project.html" target='_blank'>Vue CLI</a></li>
+          <li><a href="https://fr.vuejs.org/v2/guide/instance.html" target='_blank'>Vue Documentation</a></li>
           <li><a href="https://github.com/vuejs/devtools" target='_blank'>Vue DevTools</a></li>
           <li><a href="" target="_blank"></a></li>
           <li><a href="" target="_blank"></a></li>
@@ -1118,7 +1119,105 @@ Le routage peut être un peu difficile à mettre en place, mais vous savez maint
 <h5><a href="#sommaire">Sommaire</a></h5>
   
 <h2 id="execute_code">2.4 Déterminez quand votre code doit s’exécuter</h2>
+<h3>Découvrez le cycle de vie d’un composant</h3>    
+L'un des indicateurs les plus couramment utilisés pour mesurer la performance d'un site est le temps nécessaire avant que l'utilisateur puisse interagir avec le site.<br>
+Par conséquent, il vaut mieux éviter que notre code entier ne commence à s'exécuter que lorsque le chargement de la page se termine.<br>
+Cela ajouterait du temps d'attente et dégraderait la performance de notre site.<br>
+Et si je vous disais que le code peut s'exécuter à part, avant que vos composants ne soient affichés à l'écran ?<br><br>
+Les frameworks JavaScript ont bien intégré ce besoin, et permettent d'exécuter notre code à différents moments.<br>
+Pour résoudre ce problème, la plupart des frameworks utilisent <strong>le concept de cycle de vie des composants (components lifecycle)</strong>,<br>
+qui définit une série d'étapes par lesquelles un composant passe, de sa création à sa disparition.<br>
+Bien sûr, Vue ne déroge pas à la règle.<br><br>
+Il existe 3 étapes majeures dans le cycle de vie d'un composant :
+<ol>
+  <li><strong>Create</strong>:<br> qui représente la durée pendant laquelle le composant est en construction.</li>
+  <li><strong>Mount</strong>:<br>  qui représente le moment durant lequel le composant va être rendu sur notre page.</li>
+  <li><strong>Destroy</strong>:<br>  qui représente le moment où le composant va être retiré de la page.</li>
+</ol>
+Il est très utile de connaître ces étapes, car vous aurez besoin de définir une stratégie concernant le moment où une action particulière doit s'exécuter.<br>
+En effet, en planifiant au mieux le moment où chaque action se produit, vous vous assurez de la meilleure expérience utilisateur possible pour votre application.
+
+<h3>Découvrez les hooks de cycle de vie</h3>
+Pour résoudre ce problème de timing, les frameworks comme <strong>Vue proposent des hooks de cycle de vie (life cycle hooks)</strong>.<br><br>
+Ils permettent d'accéder à des événements spécifiques autour de ces étapes.<br>
+Nous pouvons ainsi réaliser des actions comme déclencher du code qui fait appel à des API, avant même l'apparition du composant sur la page.<br>
+Les principaux hooks que nous verrons ici sont les suivants :
+<ol>
+  <li><div class="inner_code">beforeCreate</div></li>
+  <li><div class="inner_code">created</div></li>
+  <li><div class="inner_code">beforeMount</div></li>
+  <li><div class="inner_code">mounted</div></li>
+  <li><div class="inner_code">beforeDestroy</div></li>
+  <li><div class="inner_code">destroyed</div></li>
+</ol>
+Comme vous pouvez le voir dans la liste, chaque étape dont je vous ai parlé plus tôt est accompagnée d'une paire de hooks de cycle de vie,<br>
+ce qui va vous permettre d'exécuter le code avant et après l'apparition de l'étape.<br><br>
+Cela a son importance, car certaines actions ne sont tout simplement pas réalisables pendant certains hooks du cycle de vie.<br>
+Par exemple, modifier des attributs sur un élément HTML pendant  <div class="inner_code">beforeCreate</div>  serait impossible puisque l'élément n'existe même pas encore.<br><br>
+
+  <figure>
+    <img src="media/18-cycle_de_vie.png" alt="">
+    <figcaption>Schéma du cycle de vie (life cycle) d'un composant</figcaption>
+  </figure><br><br>
+  <figure>
+    <img src="media/19-cycle_de_vie.png" alt="">
+    <figcaption>Schéma du cycle de vie d'un composant</figcaption>
+  </figure><br><br>
+
+<div class="remarque">
+  Pour une meilleure compréhension du cycle de vie d'un composant dans Vue, vous pouvez consulter le <a href="https://fr.vuejs.org/v2/guide/instance.html" target='_blank'>diagramme de cycle de vie</a> dans la documentation.
+</div>
+
+<h3>Utilisez des hooks de cycle de vie</h3>
+L'utilisation des hooks de cycle de vie est particulièrement facilitée par Vue.<br>
+De la même façon que vous définiriez  <div class="inner_code">data</div>  ou  <div class="inner_code">computed</div>, il s'agit simplement d'ajouter une autre propriété à votre objet de configuration de Vue.<br>
+La seule différence réside dans le fait qu'il s'agit de fonctions plutôt que de simples chaînes de caractères :<br>
+
+<figure>
+  <img src="media/20-hook_cycle_de_vie.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+À l'intérieur de vos hooks de cycle de vie, vous pouvez écrire n'importe quel code JavaScript dont vous avez l'habitude <br>
+et faire référence à n'importe quelle propriété standard de Vue (par exemple, data, computed, etc.) avec le préfixe  <div class="inner_code">this</div>, comme partout ailleurs.
+
+<h3>Entrainez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P2C4-Begin</div>.
+<h4>Instructions</h4>
+Utilisez un hook de cycle de vie avant que  <div class="inner_code">MenuItem</div>  ne soit rendu <br>
+pour vérifier si la date de la  journée est paire.<br>
+Si c'est le cas, le prix de chaque article devrait être affiché avec une réduction de 10 %.
+
+<h3>En résumé</h3>
+Fort de vos nouvelles connaissances sur les hooks de cycle de vie, vous pouvez maintenant :
+<ul>
+  <li>définir une stratégie pour fixer le meilleur moment auquel un code donné va s'exécuter ;</li>
+  <li>implémenter des hooks de cycle de vie dans votre application en cas de besoin.</li>
+</ul>
     
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="style">3.1 Gérez les styles de votre application</h2> 
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </body>
   </html>
 
