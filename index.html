@@ -31,6 +31,7 @@
             <li><strong><a href="#vue_router">2.3 Gérez la navigation de votre application avec le routeur Vue</a></strong></li>
             <li><strong><a href="#execute_code">2.4 Déterminez quand votre code doit s’exécuter</a></strong></li>
             <li><strong><a href="#style">3.1 Gérez les styles de votre application</a></strong></li>
+            <li><strong><a href="#data_components">3.2 Passez des datas entre les composants</a></strong></li>
         </ul>
       </div>
       <div class="sommaire">
@@ -38,6 +39,7 @@
         <ul class="list_sommaire">
           <li><a href="https://cli.vuejs.org/guide/creating-a-project.html" target='_blank'>Vue CLI</a></li>
           <li><a href="https://fr.vuejs.org/v2/guide/instance.html" target='_blank'>Vue Documentation</a></li>
+          <li><a href="https://fr.vuejs.org/v2/guide/components-props.html" target='_blank'><div class="inner_code">props</div> - Documentation officielle</a></li>
           <li><a href="https://github.com/vuejs/devtools" target='_blank'>Vue DevTools</a></li>
           <li><a href="" target="_blank"></a></li>
           <li><a href="" target="_blank"></a></li>
@@ -1324,6 +1326,91 @@ Dans ce chapitre, vous avez découvert :
   <li>les stratégies de gestion des styles avec les CSS Modules ;</li>
   <li>les stratégies de gestion des styles au fur et à mesure que vous créez des composants.</li>
 </ul>
+
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="data_components">3.2 Passez des datas entre les composants</h2> 
+Dans les chapitres précédents, vous avez appris à utiliser les props pour passer des données vers un composant.<br>
+Cependant, cela n'était qu'une utilisation basique des props.<br>
+Que se passerait-il si nous voulions être plus explicites sur le type de données qui doivent être passées ?<br>
+Et si nous voulions nous assurer que la prop est passée en continu pour que notre composant bénéficie des propriétés dont il a besoin ?<br><br>
+<h3>Définissez des props en tant qu'objets</h3>
+Définir les props comme un simple tableau de chaînes de caractères a l'avantage d'être facile à lire et à comprendre.<br>
+Mais ça manque justement de complexité.<br>
+Or, nous avons besoin de complexité pour nous assurer que nos props fonctionnent comme nous le souhaitons, peu importe qui utilise la prop.<br><br>
+Par exemple, dans le code ci-dessous, vous remarquerez que le composant prend trois props différentes :
+<ul>
+  <li><div class="inner_code">list</div> ;</li>
+  <li><div class="inner_code">title</div> ;</li>
+  <li><div class="inner_code">count</div>.</li>
+</ul>
+<figure>
+  <img src="media/31-composantVue.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+Cependant, ces props ont des exigences spécifiques, ce qui pose problème.<br>
+Par exemple,  <div class="inner_code">title</div>  devrait être une  <div class="inner_code">string</div><br>
+ mais  <div class="inner_code">list</div>  devrait posséder un comportement itératif, comme un  <div class="inner_code">array</div>  ou un  <div class="inner_code">object</div>.<br>
+Plutôt que d'espérer que ce soient bien les bonnes données qui sont passées, en croisant les doigts, ce serait quand même bien mieux de pouvoir empêcher le mauvais type de données de passer.<br>
+C'est possible en définissant les props à l'aide d'un objet au lieu d'un tableau de chaînes de caractères.<br><br>
+<figure>
+  <img src="media/32-composantVue.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+Ici, la valeur de <div class="inner_code">props</div> est un objet.<br>
+Les propriétés de cet objet correspondent à chacune des <div class="inner_code">props</div> que vous souhaitez utiliser.<br>
+Pour cela, à chaque fois, une clé correspondant au nom de la <div class="inner_code">prop</div> (par exemple,  <div class="inner_code">list</div> ) à laquelle est associée un objet servira à définir la configuration de l'objet.<br><br>
+Comme je vous l'ai dit, nous voulons éviter de recevoir le mauvais type de données dans chaque <div class="inner_code">prop</div>.<br>
+Il faut donc commencer par configurer le type de <div class="inner_code">prop</div> attendu avec la clé  <div class="inner_code">type</div> qui prend comme valeur un type de données JavaScript.<br><br>
+<figure>
+  <img src="media/33-propVue.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="remarque">
+  Pour avoir une liste complète des différents types de <div class="inner_code">props</div>, consultez la <a href="https://fr.vuejs.org/v2/guide/components-props.html" target='_blank'>documentation officielle</a>.
+</div><br><br>
+Par ailleurs, si notre composant a besoin de certaines <div class="inner_code">props</div> pour fonctionner ou avoir l'apparence souhaitée, ce serait génial de pouvoir le configurer.<br>
+Vous vous en doutez, si je vous dis ça, c'est que Vue rend cela possible.<br>
+Il suffit d'ajouter la clé <div class="inner_code">required</div> qui prend un booléen en valeur dans notre objet de configuration.<br><br>
+<figure>
+  <img src="media/34-propVue.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="remarque">Par défaut, la valeur de <div class="inner_code">required</div> est  <div class="inner_code">false</div>.</div><br><br>
+Cet objet nous permet même de définir une valeur par défaut sur les propriétés afin de fournir un contenu par défaut, dans le cas où la <div class="inner_code">prop</div> n'est jamais définie.<br>
+Pour cela, il vous suffit de préciser la clé <div class="inner_code">default</div> et de lui associer la valeur souhaitée selon vos besoins.<br>
+Dans notre exemple, cela pourrait ressembler à ce qui suit :<br><br>
+<figure>
+  <img src="media/35-propVue.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="border_red">
+  Vous avez peut-être remarqué que  <div class="inner_code">Array</div>  a une valeur par défaut qui utilise une fonction anonyme pour retourner un tableau vide.<br>
+  Nous ne l'aborderons pas dans ce cours, mais sachez que les valeurs par défaut des  <div class="inner_code">Arrays</div>  et des  <div class="inner_code">Objects</div>  doivent être retournées par une fonction pour que cela fonctionne correctement.
+</div>
+
+<h3>Entrainez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P3C2-Begin</div>.
+<h4>Instructions</h4>
+Utilisez la syntaxe en objet pour définir les propriétés associées à <div class="inner_code">props</div> dans  <div class="inner_code">MenuItem.vue</div>.
+
+<h3>En résumé</h3>
+Dans ce chapitre, vous avez acquis les connaissances pour :
+<ul>
+  <li>définir des props à l'aide d'un objet ;</li>
+  <li>définir des types de prop pour minimiser les bugs potentiels ;</li>
+  <li>utiliser la prop <div class="inner_code">required</div>;</li>
+  <li>définir une valeur par défaut sur une prop.</li>
+</ul>
+
+
+
+
+
+
+
+
 
 
 
