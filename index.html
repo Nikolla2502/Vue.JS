@@ -1198,18 +1198,132 @@ Fort de vos nouvelles connaissances sur les hooks de cycle de vie, vous pouvez m
 <h5><a href="#sommaire">Sommaire</a></h5>
   
 <h2 id="style">3.1 Gérez les styles de votre application</h2> 
+<h3>Configurez un préprocesseur</h3>
+Actuellement, lorsqu'il s'agit d'écrire du CSS, la plupart des codebases frontend utilisent un préprocesseur (comme Sass, LESS, etc.).<br><br>
+Et pour utiliser des préprocesseurs, les styles sont généralement écrits dans un format de fichier spécifique :
+<ul>
+  <li><strong>Sass</strong> ⇒ *.sass ou *.scss</li>
+  <li><strong>LESS</strong> ⇒ *.less</li>
+</ul>
+Pour tirer parti de la puissance des préprocesseurs, tout en les maintenant couplés à votre composant, vous pouvez utiliser la prop <div class="inner_code">lang</div>.<br><br>
+Après avoir configuré votre application Vue CLI avec le bon préprocesseur (comme nous l'avions fait dans la partie précédente),<br>
+il suffit de passer la prop <div class="inner_code">lang</div> au bloc de style.<br>
+Assurez-vous de bien mettre le préprocesseur souhaité, ici scss.<br><br>
+<figure>
+  <img src="media/21-style_scss.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
 
+<h3>Gérez le CSS</h3>
+Pour comprendre comment gérer votre CSS, il faut comprendre de quelle façon  <div class="inner_code">style</div>  est compilé en production.<br>
+<h4>Gérez le style global par défaut</h4>
+Lorsque  <div class="inner_code">style</div>  ne comporte aucune configuration additionnelle,<br>
+les styles sont appliqués de manière générale,<br>
+à chaque fois que le composant est rendu.<br><br>
+Donc, si notre composant ressemble à ce qui suit :<br><br>
+<figure>
+  <img src="media/22-style_scss.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+...l'HTML correspondant devrait ressembler à cela :<br><br>
+<figure>
+  <img src="media/23-style_scss.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="remarque">
+  Cela peut sembler étrange puisque la plupart des modèles traditionnels intègrent un fichier <div class="inner_code">.css</div> au lieu d'incruster le bloc de style, mais c'est en fait très efficace.<br>
+  Cela garantit en effet que les utilisateurs ne reçoivent que la CSS dont ils ont besoin, au lieu de télécharger du code superflu, qui ne sera jamais utilisé.
+</div>
 
+<h4>Utilisez des styles délimités</h4>
+La technique des styles délimités (scoped styles) est devenue populaire récemment.<br>
+Elle permet de fournir un attribut  <div class="inner_code">scoped</div>  au bloc de style, afin que le CSS ne s'applique qu'aux éléments du composant courant.<br>
+Pour ce faire, un attribut  <div class="inner_code">data</div>  personnalisé est ajouté à la classe CSS et à l'élément HTML, afin que les styles restent « scopés », donc délimités.<br>
+Grâce à cela, les effets de cascade sont minimisés en limitant leur périmètre d'action.<br><br>
+Cependant, cela n'empêchera pas les styles plus spécifiques de prendre le dessus si quelqu'un écrit des sélecteurs génériques plus spécifiques.<br>
+Il est donc très important d'utiliser de bonnes techniques d'architecture CSS !
 
+<h4>Avant le build</h4>
+<figure>
+  <img src="media/24-style_before_build.png" alt="Style Before Build">
+  <figcaption></figcaption>
+  </figure>
+<h4>Après le build</h4>
+<figure>
+  <img src="media/25-style_after_build.png" alt="Style After Build">
+  <figcaption></figcaption>
+  </figure>
+
+  <h4>Ajoutez des modules CSS</h4>
+  Bien que la technique des <strong>scoped styles</strong> puisse être efficace pour certains cas,<br>
+  l'un de ses principaux inconvénients vient du fait qu'elle peut être affectée par des styles présentant une plus grande spécificité.<br>
+  Ce n'est généralement pas un problème important pour la plupart des styles, mais cela peut devenir problématique lorsque des CSS tierces s'ajoutent et que des éléments comme  <div class="inner_code">.button</div> sont courants.
+  Les modules CSS sont appréciés pour les possibilités de modularité et de composition de CSS offertes, comme illustré ci-dessous :<br><br>
+  <figure>
+    <img src="media/26-style_css_module.png" alt="CSS Module">
+    <figcaption></figcaption>
+    </figure><br><br>
+
+    Comme pour les styles délimités, vous n'avez qu'à ajouter un attribut  <div class="inner_code">module</div>  à <div class="inner_code">< style></style></div>  et il ajoutera vos styles avec un hash aléatoire par défaut.
+    <figure>
+      <img src="media/27-style_css_module.png" alt="CSS Module">
+      <figcaption></figcaption>
+    </figure><br><br>
     
+    Cependant, l'utilisation des modules CSS nécessite d'ajouter la classe CSS avec le style  <div class="inner_code">$</div>  dans une classe  <div class="inner_code">v-bind:class</div>.
+    
+    <figure>
+      <img src="media/28-style_css_module.png" alt="CSS Module">
+      <figcaption></figcaption>
+    </figure><br><br>
+    Même s'il faut s'habituer à la syntaxe, les avantages des modules CSS l'emportent souvent sur le temps nécessaire à l'intégration de la nouvelle façon d'écrire les classes.<br>
+    Cependant, si vous ou votre équipe n'avez pas besoin de modules CSS, vous n'avez pas à vous soucier du tout de cette nouvelle syntaxe.
 
+    <h3>Découvrez des stratégies pour gérer les styles de votre application</h3>
+<h4>Maintenez vos styles couplés à votre composant</h4>
+En gardant vos styles au bas niveau, vous vous assurez que les futurs développeurs connaîtront le contexte dans lequel le style a été créé.<br>
+Cela vous évite de passer un temps considérable à essayer de créer un design system ultra perfectionné.<br>
+L'avantage, c'est que cela permet d'améliorer la maintenabilité à long terme de votre application, tout en tirant parti du découpage du code fourni par Vue.<br><br>
+Par exemple, en langage CSS traditionnel, vous pourriez écrire les styles de votre bouton comme suit :<br>
+<div class="inner_code"><strong>style.css</strong></div><br>
+<figure>
+  <img src="media/29-style_css_composant.png" alt="CSS Module">
+  <figcaption></figcaption>
+</figure><br><br>
+Cependant, même s'il ne s'agit que d'une seule classe CSS, imaginez ce qui se passerait s'il y avait encore plus de styles.<br>
+Cela signifie que les utilisateurs téléchargeraient toutes ces données, qu'ils utilisent les styles ou non.<br>
+De plus, cela ne simplifie pas les choses lorsque l'on travaille avec du code existant, car il est difficile de refactoriser sans connaître les effets de bord possibles.<br><br>
+En revanche, si nous gérions nos styles avec Vue...<br>
+<div class="inner_code"><strong>src/components/CustomButton.vue</strong></div><br>
+<figure>
+  <img src="media/30-style_css_composantVue.png" alt="CSS Module">
+  <figcaption></figcaption>
+</figure><br><br>
+N'importe quel développeur peut comprendre avec facilité la façon dont le code est lié, les effets de bord ne constituent plus vraiment un sujet de préoccupation.
 
+<h4>Ne généralisez les styles que lorsque vous avez un cas de réutilisation</h4>
+Il peut être tentant de tester et de s'en tenir aux méthodes traditionnelles de CSS, en mettant tous les styles dans un fichier CSS partagé.<br>
+Mais ce n'est pas forcément une bonne idée.<br>
+En effet, ce fichier ne peut pas être parsé de manière intelligente lorsque l'utilisateur visite une page.<br>
+Donc, à moins que vous ne voyiez un grand nombre de réutilisations de styles à travers différents composants, ma recommandation générale est de ne pas les extraire dans un fichier CSS générique, mais de s'en tenir au style composant par composant.
 
+<h3>Entrainez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P3C1-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+      <li>Migrez tous les styles des sites statiques <div class="inner_code">styles.css</div> dans les fichiers des composants respectifs.</div></li>
+      <li>Utilisez votre préprocesseur préféré si vous le souhaitez !</div></li>
+</ol>
 
-
-
-
-
+<h3>En résumé</h3>
+Dans ce chapitre, vous avez découvert :
+<ul>
+  <li>l'utilisation de préprocesseurs dans un composant monofichier ;</li>
+  <li>les stratégies de gestion des styles avec les scoped styles ;</li>
+  <li>les stratégies de gestion des styles avec les CSS Modules ;</li>
+  <li>les stratégies de gestion des styles au fur et à mesure que vous créez des composants.</li>
+</ul>
 
 
 
