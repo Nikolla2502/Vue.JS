@@ -32,6 +32,8 @@
             <li><strong><a href="#execute_code">2.4 Déterminez quand votre code doit s’exécuter</a></strong></li>
             <li><strong><a href="#style">3.1 Gérez les styles de votre application</a></strong></li>
             <li><strong><a href="#data_components">3.2 Passez des datas entre les composants</a></strong></li>
+            <li><strong><a href="#parent_components">3.3 Émettez des événements vers des composants parents</a></strong></li>
+            <li><strong><a href="#slot_components">3.4 Créez des composants flexibles en utilisant les slots</a></strong></li>
         </ul>
       </div>
       <div class="sommaire">
@@ -98,45 +100,17 @@
      <h3>Ajoutez Vue à votre site</h3>
      Alors que pour bon nombre de frameworks, vous devrez passer par des outils de build complexes comme webpack, force est de constater que l'ajout d'une instance de Vue.js à votre site est aussi simple que d'intégrer une balise script  sur votre page HTML.<br>
      Voici une simple page HTML avec le lien CDN (content delivery network) ou RDC, en français (pour réseau de diffusion de contenu) pour Vue.<br><br>
-     <div class="code">
-      <<span style="color:rgb(0, 0, 0);">.</span>!DOCTYPE html><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>html lang="fr"><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>head><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>title>Mon Application Vue.js<<span style="color:rgb(0, 0, 0);">.</span>/title><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/head><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>body><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-              <<span style="color:rgb(0, 0, 0);">.</span>h1>Ma première application Vue.js !<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
-              <<span style="color:rgb(0, 0, 0);">.</span>p>J'ai hâte de créer des applications incroyables !<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>script src="https://cdn.jsdelivr.net/npm/vue"><<span style="color:rgb(0, 0, 0);">.</span>/script><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/body><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/html>
-     </div><br><br>
+     
+     <figure>
+      <img src="media/1-Vue_install.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
+
      Voici comment tester si Vue a été correctement chargé ou non.<br>
-     <div class="code">
-      <<span style="color:rgb(0, 0, 0);">.</span>!DOCTYPE html><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>html lang="fr"><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>head><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>title>Mon Application Vue.js<<span style="color:rgb(0, 0, 0);">.</span>/title><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/head><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>body><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-              <<span style="color:rgb(0, 0, 0);">.</span>h1>Ma première application Vue.js !<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
-              <<span style="color:rgb(0, 0, 0);">.</span>p>J'ai hâte de créer des applications incroyables !<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>script><br>
-          <span style="color:rgb(140, 140, 140);">// Vue n'est pas encore chargé donc une ReferenceError devrait être retournée</span><br>
-            console.log(Vue)<br>
-            <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
-            <<span style="color:rgb(0, 0, 0);">.</span>script src="https://cdn.jsdelivr.net/npm/vue"><<span style="color:rgb(0, 0, 0);">.</span>/script><br>
-            <<span style="color:rgb(0, 0, 0);">.</span>script><br>
-            <span style="color:rgb(140, 140, 140);">// La console devrait maintenant afficher une fonction</span><br>
-                console.log(Vue)<br>
-            <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/body><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/html>
-     </div><br><br>
+     <figure>
+      <img src="media/1a-Vue_install.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
      Si vous ouvrez cette page dans votre navigateur et vérifiez la console JavaScript, vous devriez voir :<br>
      <figure>
       <img src="media/1-Console.png" alt="">
@@ -150,40 +124,16 @@
     la plupart des frameworks frontend permettent aux développeurs de contrôler quelle partie de la page est une SPA.<br>
     En d'autres termes, vous pouvez décider de quel élément HTML le framework est responsable.<br><br>
     Pour permettre à Vue d'accéder à notre page, nous devons commencer par créer une nouvelle instance de Vue.<br>
-    <div class="code">
-      <<span style="color:rgb(0, 0, 0);">.</span>!DOCTYPE html><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>html lang="fr"><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>body><br>
-      <span style="color:rgb(140, 140, 140);"><<span style="color:rgb(0, 0, 0);">.</span>!-- Contenu temporairement caché pour cet exemple --></span><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>script><br>
-          const app = new Vue()<br>
-        <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/body><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/html>
-    </div><br><br>
+    <figure>
+      <img src="media/1b-Vue_install.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
     Ensuite, nous allons configurer notre instance de Vue en lui transmettant un objet contenant notre première configuration :<br>
     l'emplacement de la page sur laquelle Vue est installé.<br><br>
-    <div class="code">
-      <<span style="color:rgb(0, 0, 0);">.</span>!DOCTYPE html><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>html lang="fr"><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>head><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>title>Mon Application Vue.js<<span style="color:rgb(0, 0, 0);">.</span>/title><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/head><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>body><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>h1>Ma première application Vue.js !<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>p>J'ai hâte de créer des applications incroyables !<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>script src="https://cdn.jsdelivr.net/npm/vue"><<span style="color:rgb(0, 0, 0);">.</span>/script><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>script><br>
-          const app = new Vue({<br>
-            el: '#app'<br>
-          })<br>
-        <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/body><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/html>
-
-    </div><br><br>
+    <figure>
+      <img src="media/1c-Vue_install.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
     Cet objet de configuration ne possède qu'une seule propriété : <strong>« el »</strong>, qui est l'abréviation d'element.<br>
     Il est ensuite suivi d'un sélecteur CSS (c'est-à-dire  <div class="inner_code">#app</div>,  <div class="inner_code">div</div>,  <div class="inner_code">.app</div>).<br>
     Utiliser un sélecteur d'ID (c'est-à-dire  <div class="inner_code">#app</div>) est considéré comme étant une bonne pratique, car votre application devra être reconnue de façon unique sur une page.<br>
@@ -202,18 +152,10 @@
     <h4>Découvrez comment afficher le rendu des données</h4>
     Lorsque nous voulons afficher nos données dans notre application web, Vue utilise la syntaxe en "moustache" (entre deux accolades) pour afficher le rendu des données.<br>
     Elle est représentée par deux accolades, comme indiqué ci-dessous :<br>
-    <div class="code">
-      <<span style="color:rgb(0, 0, 0);">.</span>div id="#app"><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>h1>VueMart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
-      
-        <<span style="color:rgb(0, 0, 0);">.</span>h2>Panier<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>li>Pommes: {{ costOfApples }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>li>Bananes: {{ costOfBananas }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-          <<span style="color:rgb(0, 0, 0);">.</span>li>Noix de coco: {{ costOfCoconuts }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/div>
-    </div><br><br>
+    <figure>
+      <img src="media/1d-Vue_install.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
 
     <div class="remarque">
       Bien que l'espace entourant la variable dans  <div class="inner_code">{{ costOfApples }}</div>  soit optionnel,<br>
@@ -222,16 +164,10 @@
     Cet exemple utilise les doubles accolades pour afficher la valeur d'une variable simplement,<br>
     mais les doubles accolades peuvent aussi être utilisées pour afficher le rendu d'expressions JavaScript basiques.<br>
     En voici quelques exemples :<br>
-<div class="code">
-  <<span style="color:rgb(0, 0, 0);">.</span>!-- Réaliser le calcul --><br>
-{{ (2 + 8) * 10 }}<br>
-<br>
-<<span style="color:rgb(0, 0, 0);">.</span>!-- Appeler des méthodes de string --><br>
-{{ "alexia".toUpperCase() }}<br>
-<br>
-<<span style="color:rgb(0, 0, 0);">.</span>!-- Opérateurs ternaires --><br>
-{{ 2 > 0 ? 'Deux est plus grand que zéro' : 'Vous ne verrez jamais cette phrase' }}
-</div><br><br>
+    <figure>
+      <img src="media/1e-Vue_install.png" alt="">
+      <figcaption></figcaption>
+    </figure><br><br>
 
 <h3>Entraînez-vous</h3>
 Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
@@ -268,21 +204,11 @@ Prenons un exemple de panier d'achats.<br>
   <figcaption>Exemple avec un panier d'achats</figcaption>
 </figure><br><br>
 
-<div class="code">
-  <<span style="color:rgb(0, 0, 0);">.</span>html><br>
-<<span style="color:rgb(0, 0, 0);">.</span>body><br>
-  <<span style="color:rgb(0, 0, 0);">.</span>h1>VueMart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
-  <br>
-  <<span style="color:rgb(0, 0, 0);">.</span>h2>Panier<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
-  <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>li>Pommes: 6€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>li>Bananes: 2€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>li>Noix de coco: 8€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-  <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
-  <<span style="color:rgb(0, 0, 0);">.</span>p>Total: 16€<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-<<span style="color:rgb(0, 0, 0);">.</span>/body><br>
-<<span style="color:rgb(0, 0, 0);">.</span>/html>
-</div><br><br>
+<figure>
+  <img src="media/3-cart_vue.png" alt="">
+  <figcaption>Exemple avec un panier d'achats</figcaption>
+</figure><br><br>
+
 Dans l'exemple ci-dessus, nous pouvons voir que cette page contient une liste du contenu de la commande de l'utilisateur.<br>
 Cependant, que se passerait-il si nous faisions passer le coût des bananes de 2 € à 10 € ?<br>
 Le montant total devrait également être mis à jour avec la bonne valeur.<br>
@@ -300,35 +226,17 @@ C'est l'essence même des données réactives puisqu'elles « réagissent » à 
 
 <h3>Faites le lien entre les données réactives et Vue</h3>
 Grâce aux connaissances que vous avez acquises dans le chapitre précédent, mettons maintenant en place un data store pour notre petit marché Vue !<br>
-<div class="code">
-  const app = new Vue({<br>
-    el: '#app',<br>
-    data: {<br>
-      costOfApples: 6,<br>
-      costOfBananas: 2,<br>
-      costOfCoconuts: 8<br>
-    }<br>
-  })
-</div><br><br>
+
+<figure>
+  <img src="media/3a-cart_vue.png" alt="">
+</figure><br><br>
+
 Dans notre HTML, nous pouvons maintenant réécrire le contenu statique pour qu'il ressemble à ceci :<br>
-<div class="code">
-  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>h1>VueMart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
-    <br>
-    <<span style="color:rgb(0, 0, 0);">.</span>h2>Panier<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>li>Pommes: {{ costOfApples }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>li>Bananes: {{ costOfBananas }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>li>Noix de coco: {{ costOfCoconuts }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>p>Total: {{ costOfApples + costOfBananas + costOfCoconuts }}€<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-      <br>
-    <<span style="color:rgb(0, 0, 0);">.</span>h2>Horaires d'ouverture<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>p>Dimanche: 10h - 16h</<span style="color:rgb(0, 0, 0);">.</span>p><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>p>Du lundi au vendredi : 09h - 17h<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>p>Samedi : 09h30 - 18h00<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-  <<span style="color:rgb(0, 0, 0);">.</span>/div>
-</div><br><br>
+
+<figure>
+  <img src="media/3b-cart_vue.png" alt="">
+</figure><br><br>
+
 Comme vous pouvez le voir maintenant, le calcul du montant total est basé sur les trois variables :  <div class="inner_code">costOfApples</div>,  <div class="inner_code">costOfBananas</div>  et  <div class="inner_code">costOfCoconuts</div>.<br>
 En cas de modification de l'une de ces valeurs, le total s'adaptera en conséquence.<br>
 En d'autres termes, le data store fait en sorte que tout soit réactif pour que vous n'ayez plus à intervenir !<br>
@@ -341,81 +249,26 @@ Heureusement pour nous, Vue dispose d'une propriété pour nous aider à traiter
 <h3>Découvrez les propriétés calculées</h3>
 Les propriétés calculées (computed properties) nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés  <div class="inner_code">data</div>.<br>
 Comme pour la propriété  <div class="inner_code">data</div>, nous commençons par ajouter une propriété  <div class="inner_code">computed</div> (calculée ) qui utilise un objet pour définir les propriétés que nous voulons. <br>
-<div class="code">
-  const app = new Vue({<br>
-    el: '#app',<br>
-    data: {<br>
-      costOfApples: 6,<br>
-      costOfBananas: 2,<br>
-      costOfCoconuts: 8<br>
-    },<br>
-    computed: {}<br>
-  })
-</div><br><br>
+<figure>
+  <img src="media/3c-cart_vue.png" alt="">
+</figure><br><br>
 Cependant, contrairement à la propriété  <div class="inner_code">data</div>,<br>
  chaque propriété calculée doit être une fonction retournant une valeur.<br>
  En effet, elle effectue des calculs et retourne le résultat souhaité.<br><br>
  Comme je l'ai mentionné précédemment, notre but est de simplifier notre code HTML en utilisant  <div class="inner_code">{{ totalAmount }}</div>  au lieu de  <div class="inner_code">{{ costOfApples + costOfBananas + costOfCoconuts }}</div>.<br>
  Cela peut se faire de la manière suivante :<br>
- <div class="code">
-  const app = new Vue({<br>
-    el: '#app',<br>
-    data: {<br>
-      costOfApples: 6,<br>
-      costOfBananas: 2,<br>
-      costOfCoconuts: 8<br>
-    },<br>
-    computed: {<br>
-      totalAmount() {<br>
-        return this.costOfApples + this.costOfBananas + this.costOfCoconuts<br>
-      }<br>
-    }<br>
-  })
-</div><br><br>
+ <figure>
+  <img src="media/3d-cart_vue.png" alt="">
+ </figure><br><br>
 <div class="remarque">
   Cet exemple utilise la syntaxe ES6 pour définir une fonction (c'est-à-dire que  <div class="inner_code">totalAmount()  { ... }</div>  est identique à  <div class="inner_code">totalAmount: function()  { ... })</div>.<br>
   Cependant, <strong>n'utilisez pas les fonctions fléchées</strong>, car cela réinitialisera le contexte de  <div class="inner_code">this</div>.<br>
   Cela cassera l'application puisque vous avez besoin de  <div class="inner_code">this</div>  pour pointer vers l'instance de Vue, afin de faire référence aux propriétés de  <div class="inner_code">data</div>.
 </div><br><br>
 Avec ce refactoring, notre code est complet !<br>
-<div class="code">
-  <<span style="color:rgb(0, 0, 0);">.</span>html><br>
-<<span style="color:rgb(0, 0, 0);">.</span>body><br>
-  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>h1>VueMart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
-    <br>
-    <<span style="color:rgb(0, 0, 0);">.</span>h2>Panier<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>li>Pommes: {{ costOfApples }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>li>Bananes: {{ costOfBananas }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>li>Noix de coco: {{ costOfCoconuts }}€<<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>p>Total: {{ totalAmount }}€<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-    <br>
-    <<span style="color:rgb(0, 0, 0);">.</span>h2>Horaires d'ouverture<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>p>Dimanche: 10h - 16h<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>p>Du lundi au vendredi: 09h - 17h<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>p>Samesi: 09h30 - 18h00<<span style="color:rgb(0, 0, 0);">.</span>/p><br>
-  <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-  <br>
-  <<span style="color:rgb(0, 0, 0);">.</span>script><br>
-    const app = new Vue({<br>
-      el: '#app',<br>
-      data: {<br>
-        costOfApples: 6,<br>
-        costOfBananas: 2,<br>
-        costOfCoconuts: 8<br>
-      },<br>
-      computed: {<br>
-        totalAmount() {<br>
-          return this.costOfApples + this.costOfBananas + this.costOfCoconuts<br>
-        }<br>
-      }<br>
-    })<br>
-  <<span style="color:rgb(0, 0, 0);">.</span>/script><br>
-<<span style="color:rgb(0, 0, 0);">.</span>/body><br>
-<<span style="color:rgb(0, 0, 0);">.</span>/html>
-</div><br><br>
+<figure>
+  <img src="media/3e-cart_vue.png" alt="">
+ </figure><br><br>
 Toutes les données de notre application sont maintenant dynamiques et prêtes à réagir à toute modification pouvant intervenir dans le panier de l'utilisateur.<br><br>
 Pour le vérifier, vous pouvez par exemple vous rendre dans la console et taper  <div class="inner_code">app.costOfApples = 4</div>.<br>
 Toutes les données se mettent à jour automatiquement !
@@ -467,39 +320,18 @@ Dans Vue, deux directives principales permettent de réaliser cela :<br>
   <h4><div class="inner_code">v-if</div> ,<div class="inner_code">v-else-if</div> ,<div class="inner_code">v-else</div></h4>
   Comme le suggèrent les mots-clés de la directive, cette dernière suit la structure de rendu conditionnel standard  <div class="inner_code">if/then</div>  de JavaScript.<br>
   En voici un exemple simple :<br>
-  <div class="code">
-    <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-    <span style="color:rgb(140, 140, 140);"><<span style="color:rgb(0, 0, 0);">.</span>!-- Si (if) l'utilisateur a les autorisations par défaut, afficher ce qui suit --><br></span>
-      <<span style="color:rgb(0, 0, 0);">.</span>section v-if="userPermission === 'default'">...<<span style="color:rgb(0, 0, 0);">.</span>/section><br>
-      <span style="color:rgb(140, 140, 140);"><<span style="color:rgb(0, 0, 0);">.</span>!-- Sinon et si l'utilisateur a les autorisations administrateur, afficher ce qui suit --><br></span>
-      <<span style="color:rgb(0, 0, 0);">.</span>section v-else-if="userPermission === 'admin'">...<<span style="color:rgb(0, 0, 0);">.</span>/section><br>
-      <span style="color:rgb(140, 140, 140);"><<span style="color:rgb(0, 0, 0);">.</span>!-- Si l'utilisateur n'a aucune autorisation afficher ce qui suit --><br></span>
-      <<span style="color:rgb(0, 0, 0);">.</span>section v-else>...<<span style="color:rgb(0, 0, 0);">.</span>/section><br>
-      <<span style="color:rgb(0, 0, 0);">.</span>/div>
-  </div><br><br>
-<div class="important">
-  Bien qu'il ressemble à une chaîne de caractères, le texte situé entre les guillemets des directives est interprété comme du JavaScript et non comme une chaîne de caractères.
-</div>
-
+  <figure>
+    <img src="media/4-directive_vue.png" alt="">
+   </figure><br><br>
+<div class="important">Bien qu'il ressemble à une chaîne de caractères, le texte situé entre les guillemets des directives est interprété comme du JavaScript et non comme une chaîne de caractères.</div>
 <h4>v-show</h4>
 Cette directive peut sembler très similaire à la directive  <div class="inner_code">v-if</div>  ; pourtant, les deux ne sont pas interchangeables.<br>
 <div class="inner_code">v-show</div> est généralement utilisée dans le but de contrôler la visibilité d'un élément faisant l'objet d'une permutation (toggle, en anglais) fréquente.<br>
 En voici un exemple courant :<br>
-<div class="code">
-  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>button @click="showModal = !showModal">Display Modal<<span style="color:rgb(0, 0, 0);">.</span>/button><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>div v-show="showModal" class="modal">...<<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-    <br>
-    <<span style="color:rgb(0, 0, 0);">.</span>script><br>
-        const app = new Vue({<br>
-            el: '#app',<br>
-            data: {<br>
-                showModal: false<br>
-            }<br>
-        })<br>
-    <<span style="color:rgb(0, 0, 0);">.</span>/script>
-  </div><br><br>
+<figure>
+  <img src="media/4a-directive_vShow_vue.png" alt="">
+ </figure><br><br>
+
   <div class="remarque">
     Vous n’avez pas encore vu la directive <div class="inner_code">v-on</div> (abrégée <div class="inner_code">@</div>), par exemple <div class="inner_code">@click</div>.<br>
     Ceci n’est pas gênant pour la compréhension du but du code et ne vous inquiétez pas, on voit ça juste après !
@@ -516,58 +348,18 @@ En voici un exemple courant :<br>
   Elle suit la syntaxe de boucle JavaScript standard  <div class="inner_code">for ... in</div>.<br>
   Prenons un exemple courant, le renvoi d'une liste.<br>
   Dans notre exemple de panier d'achats, on aurait également pu écrire :<br>
-<div class="code">
-  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>h1>Vue Mart<<span style="color:rgb(0, 0, 0);">.</span>/h1><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>h2>Shopping Cart<<span style="color:rgb(0, 0, 0);">.</span>/h2><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
-        <<span style="color:rgb(0, 0, 0);">.</span> v-for="item in shoppingCart"><br>
-            {{ item.label }} : {{ item.cost }}€<br>
-        <<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
-<<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-<br>
-<<span style="color:rgb(0, 0, 0);">.</span>script><br>
-    const app = new Vue({<br>
-        el: '#app',<br>
-        data: {<br>
-            shoppingCart: [<br>
-                { label: 'Pommes', cost: 6 },<br>
-                { label: 'Bananes', cost: 2 },<br>
-                { label: 'Noix de coco', cost: 8 }<br>
-            ]<br>
-        }<br>
-    })<br>
-<<span style="color:rgb(0, 0, 0);">.</span>/script>
-</div><br>
-
+  <figure>
+    <img src="media/4b-directive_vFor_vue.png" alt="">
+   </figure><br><br>
 <h3 id='v-bind'>Définissez des attributs HTML de façon dynamique <div class="inner_code">v-bind</div></h3>
 Vous serez très souvent tenté d'utiliser une propriété  <div class="inner_code">data</div>  pour définir l'attribut d'un élément, plutôt que de le coder en dur.<br>
 Il y a justement une directive faite exprès : la directive  <div class="inner_code">v-bind</div>.<br>
 C'est le cas, par exemple, lorsque vous effectuez une requête pour récupérer des données auprès d'une API et que vous avez besoin de renvoyer des données en fonction de ce qui est retourné.<br>
 Voici un exemple :<br>
-<div class="code">
-  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>ul><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>li v-for="item in apiResponse"><br>
-            <<span style="color:rgb(0, 0, 0);">.</span>a v-bind:href="item.url">{{ item.name }}<<span style="color:rgb(0, 0, 0);">.</span>/a><br>
-        <<span style="color:rgb(0, 0, 0);">.</span>/li><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>/ul><br>
-<<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-<br>
-<<span style="color:rgb(0, 0, 0);">.</span>script><br>
-    const app = new Vue({<br>
-        el: '#app',<br>
-        data: {<br>
-            apiResponse: [<br>
-                { name: 'GitHub', url: 'https://www.github.com' },<br>
-                { name: 'Twitter', url: 'https://www.twitter.com' },<br>
-                { name: 'Netlify', url: 'https://www.netlify.com' }<br>
-            ]<br>
-        }<br>
-    })<br>
-<<span style="color:rgb(0, 0, 0);">.</span>/script>
-</div><br><br>
+<figure>
+  <img src="media/4c-directive_vBind_vue.png" alt="">
+ </figure><br><br>
+
 <div class="remarque">
 Vous auriez pu penser que nous pourrions faire  <div class="inner_code">< a href=”{{ item.url }}”>...< /a></div>  .<br>
 Cependant, si vous faites ça, vous aurez dans le dur en HTML  <div class="inner_code">< a href=”{{ item.url }}”>...< /a></div>  et non pas  <div class="inner_code">< a href=”https://github.com”>...< /a></div>  par exemple.<br>
@@ -578,11 +370,10 @@ En d'autres termes, au lieu d'écrire  <div class="inner_code">v-bind:href="item
 <h3 id='v-on'>Écoutez des événements et répondez-y <div class="inner_code">v-on</div></h3>
 Lorsque vous souhaitez écouter certains événements sur un élément, Vue vous facilite la tâche avec la directive  <div class="inner_code">v-on</div>.<br>
 Voici un exemple simple :<br>
-<div class="code">
-  < div id="app"><br>
-    < button v-on:click="alert('Bonjour')">Cliquez ici !< /button><br>
-< /div>
-</div><br><br>
+
+<figure>
+  <img src="media/4d-directive_vOn_vue.png" alt="">
+ </figure><br><br>
 <div class="remarque">
   La directive  <div class="inner_code">v-on</div>  est couramment utilisée via son abréviation <div class="inner_code">@</div>.<br>
   Au lieu d'écrire  <div class="inner_code">v-on:click="alert('Bonjour')"</div>, on écrit généralement plutôt  <div class="inner_code">@click="alert('Bonjour')"</div>.
@@ -591,54 +382,15 @@ Cependant, nous aurons souvent besoin d'appeler des fonctions bien plus complexe
 Et c'est là que les méthodes entrent en jeu.<br>
 Les méthodes vous permettent de définir des fonctions auxquelles votre application Vue aura accès.<br>
 Elles sont définies comme la propriété  <div class="inner_code">data</div>.<br>
-<div class="code">
-  const app = new Vue({<br>
-    el: '#app',<br>
-    data: {<br>
-        favoriteColor: 'bleu'<br>
-    },<br>
-    computed: {<br>
-        label() {<br>
-            return ': ' + this.favoriteColor<br>
-        }<br>
-    },<br>
-    methods: {<br>
-        alertColor(color) {<br>
-            alert('Ma couleur préférée est ' + color)<br>
-        },<br>
-        changeColor() {<br>
-            console.log('Je veux changer ma couleur préférée !')<br>
-        }<br>
-    }<br>
-})
-</div><br><br>
+<figure>
+  <img src="media/4e-methods_vue.png" alt="">
+ </figure><br><br>
 Comme vous pouvez le constater, il faut un objet qui est en fait une fonction JavaScript standard.<br>
 Cependant, vous voudrez parfois interagir avec des propriétés gérées dans Vue (c'est-à-dire, data, calculées, etc.).<br>
 Tout comme vous désigneriez des propriétés  <div class="inner_code">data</div>  dans des valeurs calculées en les préfixant avec  <div class="inner_code">this</div>, vous ferez la même chose ici !<br>
-<div class="code">
-  const app = new Vue({<br>
-    el: '#app',<br>
-    data: {<br>
-        favoriteColor: 'bleu'<br>
-    },<br>
-    computed: {<br>
-        label() {<br>
-            return ': ' + this.favoriteColor<br>
-        }<br>
-    },<br>
-    methods: {<br>
-        alertColor(colorLabel) {<br>
-            alert('Ma couleur préférée ' + colorLabel)<br>
-        },<br>
-        changeColor() {<br>
-          <span style="color:rgb(140, 140, 140);">// Change la propriété data</span> <br>
-            this.favoriteColor = 'turquoise'<br>
-            <span style="color:rgb(140, 140, 140);">// Appelle une méthode différente et passe une propriété calculée</span> <br>
-            this.alertColor(this.label)<br>
-        }<br>
-    }<br>
-})
-</div><br><br>
+<figure>
+  <img src="media/4f-methods_vue.png" alt="">
+ </figure><br><br>
 <h3 id='v-model'>Mettez à jour les données dans des formulaires <div class="inner_code">v-model</div></h3>
 Lorsque l'on travaille avec des formulaires, on préfère mettre à jour le data store en conséquence.<br>
 Cela nous permet d'effectuer des tâches telles que lancer une validation, des calculs, etc.<br>
@@ -646,24 +398,10 @@ Même s'il est possible de réaliser cela manuellement avec une directive  <div 
 Vue fournit un moyen standard pour accomplir cette tâche avec  <div class="inner_code">v-model</div>.<br><br>
 Cela vous permet de définir la propriété  <div class="inner_code">data</div>  que vous souhaitez mettre à jour lorsque l'utilisateur interagit avec un formulaire.<br><br>
 Voici un exemple :<br>
-<div class="code">
-  <<span style="color:rgb(0, 0, 0);">.</span>div id="app"><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>label for="username">Nom d'utilisateur<<span style="color:rgb(0, 0, 0);">.</span>/label><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>input id="username" type="text" v-model="username" /><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>label for="pw">Mot de passe<<span style="color:rgb(0, 0, 0);">.</span>/label><br>
-    <<span style="color:rgb(0, 0, 0);">.</span>input id="pw" type="password" v-model="password" /><br>
-<<span style="color:rgb(0, 0, 0);">.</span>/div><br>
-<br>
-<<span style="color:rgb(0, 0, 0);">.</span>script><br>
-    const app = new Vue({<br>
-        el: '#app',<br>
-        data: {<br>
-            username: '',<br>
-            password: ''<br>
-        }<br>
-    })<br>
-<<span style="color:rgb(0, 0, 0);">.</span>/script>
-</div><br><br>
+
+<figure>
+  <img src="media/4g-methods_data_vue.png" alt="">
+ </figure><br><br>
 Maintenant, à chaque fois que l'utilisateur saisira des données dans les inputs correspondants, le data store sera mis à jour en conséquence !
 
 <h3>Entraînez-vous</h3>
@@ -1405,6 +1143,9 @@ Dans ce chapitre, vous avez acquis les connaissances pour :
 </ul>
 
 
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="parent_components">3.3 Émettez des événements vers des composants parents</h2> 
 
 
 
@@ -1413,6 +1154,173 @@ Dans ce chapitre, vous avez acquis les connaissances pour :
 
 
 
+<li><strong><a href="#parent_components">3.3 Émettez des événements vers des composants parents</a></strong></li>
+
+<h3>Révisez les événements</h3>
+En développement web, les <a href="https://developer.mozilla.org/fr/docs/Learn/JavaScript/Building_blocks/Events" target='_blank'>événements</a> sont des actions ou des occurrences qui se produisent pendant l'utilisation d'un site web.<br>
+Voici des exemples courants d'événements :
+<ul>
+  <li>lorsqu'un utilisateur clique sur un élément ;</li>
+  <li>lorsqu'un utilisateur appuie sur une touche du clavier ;</li>
+  <li>lorsqu'un formulaire est soumis ;</li>
+  <li>lorsque la fenêtre d'un navigateur est redimensionnée.</li>
+</ul>
+Lorsque ces actions se produisent, des événements sont émis afin que nous puissions y répondre en utilisant des techniques comme les gestionnaires d'événements.<br>
+Un objet événement (event-object) est alors automatiquement passé aux événements.<br>
+Il contiendra des fonctionnalités supplémentaires ou des informations sur l'événement.<br>
+Par exemple, lorsqu'un utilisateur appuie sur une touche du clavier, l'objet événement peut nous indiquer quelle touche a été actionnée.
+
+<h3>Créez un événement personnalisé</h3>
+Dans le monde du frontend, la gestion des événements est répandue.<br>
+Comme nous l'avons vu précédemment avec la directive  <div class="inner_code">v-on</div>, nous pouvons facilement écouter des événements courants et déclencher des fonctions à volonté.<br>
+Cependant, ce serait bien pratique de pouvoir définir nos propres événements personnalisés faisant l'objet d'une émission.<br>
+Heureusement, c'est très facile à réaliser avec la fonctionnalité intégrée  <div class="inner_code">$emit</div>  de Vue.
+<h4>Utilisez <div class="inner_code">$emit</div></h4>
+La fonction  <div class="inner_code">$emit</div>  prend deux paramètres :
+<ul>
+  <li>le nom de l'événement (qui doit être défini en kebab-case) ;</li>
+  <li>un payload optionnel que vous pouvez utiliser pour passer des données à l'écouteur de l'événement.</li>
+</ul>
+<div class="inner_code">src/ChildComponent.vue</div><br>
+<figure>
+  <img src="media/36-emit.png" alt="$emit">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="remarque">
+  Le payload est généralement défini comme un objet.<br>
+  Cela permet de passer autant de propriétés que souhaité à travers un seul événement
+</div>
+
+<h4>Écoutez et répondez à un événement émis</h4>
+Une fois qu'un événement est émis, le composant parent qui utilise le composant enfant est capable d'écouter l'événement via la directive  <div class="inner_code">v-on</div>.<br>
+Pour cela, vous devez :
+<ol>
+  <li>Ajouter un écouteur d'événement (listener)  <div class="inner_code">v-on</div>  avec le nom de l'événement personnalisé sur le composant émettant l'événement.</li>
+  <li>Lui assigner une méthode recevant le payload comme premier argument s'il existe.</li>
+</ol>
+<div class="inner_code">src/ParentComponent.vue</div><br>
+<figure>
+  <img src="media/37-emit.png" alt="$emit">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="important">
+  Attention cependant :<br>
+  cette technique ne fonctionne que lorsqu'on communique directement depuis un composant enfant vers un composant parent.<br>
+  En d'autres termes, ne vous attendez pas à ce que votre événement soit émis dans l'ensemble de l'application.
+</div>
+<h3>Entrainez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P3C3-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+      <li>Supprimez la prop  addToShoppingCart du  <div class="inner_code">MenuItem</div></div></li>
+      <li>Créez une nouvelle méthode appelée  <div class="inner_code">updateShoppingCart</div>  dans  <div class="inner_code">MenuItem</div>  qui émet un événement appelé  <div class="inner_code">add-items-to-cart</div>  à  <div class="inner_code">Home.vue</div>  pour mettre à jour le panier.</div></li>
+</ol>
+<h3>En résumé</h3>
+Dans ce chapitre, vous avez appris à :
+<ul>
+  <li>définir des événements personnalisés dans les composants ;</li>
+  <li>émettre des événements personnalisés à partir de composants enfants ;</li>
+  <li>écouter des événements personnalisés à partir de composants enfants ;</li>
+  <li>utiliser le payload des événements personnalisés pour effectuer des actions supplémentaires.</li>
+</ul>
+
+
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="slot_components">3.4 Créez des composants flexibles en utilisant les slots</h2> 
+Même si les props sont très puissantes, elles ajoutent un niveau de complexité dans l'interaction avec un composant, puisqu'elles demandent un certain niveau de connaissance afin d'utiliser le composant de manière adéquate.<br>
+De plus, on peut facilement se retrouver au milieu d'un « bazar de props » lorsqu'un composant a besoin de plusieurs props pour fonctionner correctement.<br><br>
+<figure>
+  <img src="media/38-slot.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+Dans le cas où votre composant nécessiterait une solution plus flexible, Vue peut vous aider avec la technique des  <div class="inner_code">slots</div>.
+<h3>Découvrez les slots</h3>
+L'élément  <div class="inner_code">< slot>< /slot></div>  sert d'emplacement pour du contenu que le développeur peut définir dynamiquement sans props prédéterminées.<br>
+Prenons un exemple.<br>
+À l'aide du composant  <div class="inner_code">custom-banner</div>, nous voulons que les utilisateurs puissent définir différentes bannières personnalisées.<br>
+L'idée ici est justement d'éviter notre bazar de props.<br>
+Par exemple, imaginons que nous voulions que notre composant  <div class="inner_code">CustomBanners</div>  rende le résultat suivant  :<br>
+<figure>
+  <img src="media/39-slot.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+Si cela avait été réalisé uniquement avec des props, le résultat pourrait ressembler à ceci :<br>
+<figure>
+  <img src="media/40-slot.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+Plus important encore, le bloc Template du composant  <div class="inner_code">CustomBanner</div>  ressemblerait à ceci :<br>
+<div class="inner_code">src/components/CustomBanner.vue</div><br>
+<figure>
+  <img src="media/41-slot.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+Même dans cet exemple simple, le bloc Template semble déjà assez difficile à lire.<br>
+Alors que si on avait utilisé des slots...<br>
+<div class="inner_code">src/components/CustomBanner.vue</div><br>
+<figure>
+<img src="media/42-slot.png" alt="">
+<figcaption></figcaption>
+</figure><br><br>
+Et voilà !<br>
+Comme vous pouvez le voir, le slot devient un espace ouvert où le développeur peut passer n'importe quel contenu personnalisé,<br>
+sans avoir besoin d'utiliser un grand nombre de conditions pour gérer différents scénarios de props.
+<h4>Définissez le contenu par défaut d'un slot</h4>
+De la même façon qu'il est possible de définir une valeur par défaut pour les props,<br>
+vous pouvez également définir le contenu par défaut d'un slot.<br>
+C'est particulièrement utile lorsque vous souhaitez afficher un contenu standard, à moins que le développeur ne définisse un contenu personnalisé.<br><br>
+Pour donner un contenu par défaut à notre  <div class="inner_code">CustomBanner</div>,<br>
+tout ce que nous avons à faire est de placer le contenu par défaut à l'intérieur des balises  <div class="inner_code">slot</div>  dans le bloc <div class="inner_code">Template</div>.<br>
+<figure>
+<img src="media/43-slot.png" alt="">
+<figcaption></figcaption>
+</figure>
+<h3>Découvrez comment utiliser plusieurs slots</h3>
+Vous vous demandez peut-être aussi : « Et si je veux utiliser plusieurs slots dans un composant ? »<br>
+Et ce serait une excellente question !<br>
+Prenons l'exemple d'un simple composant  <div class="inner_code">Card</div>  :<br>
+<figure>
+<img src="media/44-slot.png" alt="">
+<figcaption></figcaption>
+</figure><br><br>
+Dans ce composant, nous utilisons des props pour effectuer la configuration,<br>
+mais nous savons que ce sera un cauchemar à gérer s'il s'agrandit.<br>
+Ici, trois slots différents pourraient être définis par un développeur.<br>
+Pour résoudre ce problème, nous avons besoin de <strong>slots nommés</strong>.<br><br>
+Les slots nommés permettent d'attribuer des noms aux slots afin que les développeurs puissent s'y référer plus tard.<br>
+Ainsi, dans l'instance de notre composant  <div class="inner_code">Card</div>, nous donnons simplement une prop  <div class="inner_code">name</div>  à chaque slot.<br>
+<figure>
+<img src="media/45-slot.png" alt="">
+<figcaption></figcaption>
+</figure><br><br>
+Lorsque nous voulons invoquer notre composant (à partir de la v2.6 de Vue.js et plus),<br>
+il suffit d'utiliser la directive  <div class="inner_code">v-slot</div>  sur un élément  <div class="inner_code">template</div>  comme ici :<br>
+<figure>
+  <img src="media/46-slot.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+<h3>Entrainez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P3C4-Begin</div>.
+<h4>Instructions</h4>
+Refactorez le composant  <div class="inner_code">BaseButton</div>  en utilisant des slots plutôt que les props qui sont définies pour le moment.
+<h3>En résumé</h3>
+Dans ce chapitre, vous avez découvert :
+<ul>
+  <li>les difficultés induite par le bazar de props ;</li>
+  <li>la définition de slots sur des composants ;</li>
+  <li>la définition de contenu par défaut dans les slots ;</li>
+  <li>l'utilisation de slots nommés pour gérer plusieurs slots.</li>
+</ul>
+    
+
+    
+
+    
+
+    
 
 
 
