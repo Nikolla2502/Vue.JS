@@ -34,6 +34,9 @@
             <li><strong><a href="#data_components">3.2 Passez des datas entre les composants</a></strong></li>
             <li><strong><a href="#parent_components">3.3 Émettez des événements vers des composants parents</a></strong></li>
             <li><strong><a href="#slot_components">3.4 Créez des composants flexibles en utilisant les slots</a></strong></li>
+            <li><strong><a href="#state_management">4.1 Découvrez le principe de state management</a></strong></li>
+            <li><strong><a href="#vueX">4.2 Créez un data store centralisé avec Vuex</a></strong></li>
+            <li><strong><a href="#data_vueX">4.3 Récupérez des données depuis Vuex</a></strong></li>
         </ul>
       </div>
       <div class="sommaire">
@@ -43,7 +46,7 @@
           <li><a href="https://fr.vuejs.org/v2/guide/instance.html" target='_blank'>Vue Documentation</a></li>
           <li><a href="https://fr.vuejs.org/v2/guide/components-props.html" target='_blank'><div class="inner_code">props</div> - Documentation officielle</a></li>
           <li><a href="https://github.com/vuejs/devtools" target='_blank'>Vue DevTools</a></li>
-          <li><a href="" target="_blank"></a></li>
+          <li><a href="https://fr.vuejs.org/v2/guide/plugins.html" target='_blank'>Plugins VueX</a></li>
           <li><a href="" target="_blank"></a></li>
           <li><a href="" target="_blank"></a></li>
           <li><a href="" target="_blank"></a></li>
@@ -1146,16 +1149,6 @@ Dans ce chapitre, vous avez acquis les connaissances pour :
 <h5><a href="#sommaire">Sommaire</a></h5>
   
 <h2 id="parent_components">3.3 Émettez des événements vers des composants parents</h2> 
-
-
-
-
-
-
-
-
-<li><strong><a href="#parent_components">3.3 Émettez des événements vers des composants parents</a></strong></li>
-
 <h3>Révisez les événements</h3>
 En développement web, les <a href="https://developer.mozilla.org/fr/docs/Learn/JavaScript/Building_blocks/Events" target='_blank'>événements</a> sont des actions ou des occurrences qui se produisent pendant l'utilisation d'un site web.<br>
 Voici des exemples courants d'événements :
@@ -1213,7 +1206,7 @@ Vous trouverez le code source des exercices dans le repo <a href="https://github
 Pour commencer, consultez la branche  <div class="inner_code">P3C3-Begin</div>.
 <h4>Instructions</h4>
 <ol>
-      <li>Supprimez la prop  addToShoppingCart du  <div class="inner_code">MenuItem</div></div></li>
+      <li>Supprimez la prop  <div class="inner_code">addToShoppingCart</div> du  <div class="inner_code">MenuItem</div></li>
       <li>Créez une nouvelle méthode appelée  <div class="inner_code">updateShoppingCart</div>  dans  <div class="inner_code">MenuItem</div>  qui émet un événement appelé  <div class="inner_code">add-items-to-cart</div>  à  <div class="inner_code">Home.vue</div>  pour mettre à jour le panier.</div></li>
 </ol>
 <h3>En résumé</h3>
@@ -1316,11 +1309,190 @@ Dans ce chapitre, vous avez découvert :
 </ul>
     
 
-    
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="state_management">4.1 Découvrez le principe de state management</h2> 
+Lorsque l'on travaille avec des applications monopages (SPA), le concept de state management (gestion d'état) est un sujet couramment abordé.<br><br>
+Et même si ce sujet peut souvent mener à des discussions très complexes, le principal objectif recherché par tous est le suivant :<br>
+<strong>s'assurer que l'application utilise les bonnes données à tout moment.</strong><br><br>
+Sur cette base, nous pouvons définir le state (ou état, en français) comme un instantané du data store à un moment donné.<br>
+De multiples states sont utilisés à travers une application, ce qui explique la complexité inhérente à la gestion de ces éléments.<br>
+Après tout, chaque composant utilisé contient sa propre propriété  <div class="inner_code">data</div>, ce qui signifie qu'il gère son propre state.<br>
+Une fois que l'on ajoute la complexité du passage de données entre composants, cela devient effectivement très compliqué.<br>
+Pour illustrer cela, combien y a-t-il d'instances de state représentées dans l'exemple suivant ?<br><br>
+<strong>src/components/GroceryList.vue</strong><br>
+<figure>
+  <img src="media/47-state_management.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+À première vue, il semblerait qu'il y ait deux instances d'état : le composant parent  <div class="inner_code">< GroceryList></div>  et le composant enfant  <div class="inner_code">< ListItem></div>.<br>
+Pourtant, il s'avère que nous sommes en réalité en présence de 4 instances de state au total :
+    <ol>
+      <li>GroceryList.</li>
+      <li>ListItem item="pommes".</li>
+      <li>ListItem item="bananes".</li>
+      <li>ListItem item="cerises".</li>
+    </ol>
+Pour comprendre cela, imaginez que le composant  <div class="inner_code">< ListItem></div>  ait été défini comme suit :<br>
+<figure>
+  <img src="media/48-state_management.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>    
 
-    
+Comme vous pouvez l'imaginer, chaque article de  <div class="inner_code">< GroceryList></div>  doit pouvoir gérer le fait qu'il a été acheté ou non.<br>
+Si les composants enfants partageaient un state unique, alors le fait de cocher un seul article mettrait automatiquement à jour les autres composants
+<h3>Récupérez vos datas à la source unique de vérité</h3>
+Dans les discussions autour de la gestion du state, et parmi les termes couramment cités, apparaît l'idée d'une « source unique de vérité » (qui est aussi parfois abrégée en « SSoT » pour Single Source of Truth).<br>
+Le concept fondamental derrière une source unique de vérité est d'éviter la duplication inutile de données dans l'application.<br><br>
+Bien que cela puisse paraître anodin à première vue, le fait de stocker plusieurs copies des mêmes données dans une application est souvent la principale cause de bugs dans un système,<br>
+car cela permet l'existence de différents jeux des « mêmes » données en même temps.<br>
+Au lieu de n'avoir à mettre à jour qu'un seul jeu de données, l'application devra gérer plusieurs jeux de données, ce qui est problématique, car :
+<il>
+  <li>du point de vue du code, cela s'avère bien plus difficile à gérer,<br>
+    car il existe une dépendance qu'il est facile d'oublier à mesure que le système se complexifie ;</li>
+  <li>des bugs apparaissent en plus grand nombre à la suite de cette fragmentation.</li>
+</il>
+C'est pour cette raison que le concept de source unique de vérité est essentiel au succès de tout système de gestion du state.
+<h3>Entrainez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P4C1-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+      <li>Évaluez le state actuel de l'application et déterminez où se trouvent les différentes propriétés des données.</li>
+      <li>Créez un plan ou un document visuel représentant la structure du state de l'application.</li>
+</ol>
+<h3>En résumé</h3>
+Dans notre vision du système de gestionnaire de state idéal, ce dernier devrait être capable de :
+<ul>
+  <li>créer un espace de stockage de données unique qui servira de source unique de vérité pour toutes les données partagées ;</li>
+  <li>permettre à n'importe quel composant de récupérer des données directement ;</li>
+  <li>permettre à n'importe quel composant de modifier le data store unique directement.</li>
+</ul>
 
-    
+
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="vueX">4.2 Créez un data store centralisé avec Vuex</h2> 
+Vuex est un gestionnaire d'état et une bibliothèque pour les applications Vue.js.<br>
+En d'autres termes, le but unique de Vuex est de nous aider à créer un store centralisé qui nous permettra d'avoir cette "source unique de vérité" pour récupérer nos datas.
+
+<h3>Installez Vuex</h3>
+Grâce à Vue CLI, il suffit d'exécuter la commande suivante dans notre terminal pour ajouter Vuex à notre projet :<br>
+<div class="code">vue add vuex</div><br><br>
+Une fois Vuex ajouté à votre application par Vue CLI, vous devriez voir un résultat similaire dans votre terminal :<br>
+<figure>
+  <img src="media/49-vuex.png" alt="VueX install">
+  <figcaption>Ce que vous devriez voir dans votre terminal</figcaption>
+</figure><br><br>
+Cela signifie que Vuex est bien installé dans votre application.<br>
+Maintenant, voyons voir quels changements ont été apportés à notre application.<br><br>
+<strong>src/main.js</strong>
+<figure>
+  <img src="media/50-vuex.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+En regardant le fichier  <div class="inner_code">main.js</div>  de plus près, vous remarquerez que le plugin a introduit le  <div class="inner_code">store</div>  en tant que nouvelle configuration sur notre instance de Vue.<br>
+De la même manière que nous configurerions une propriété  <div class="inner_code">data</div>  pour mettre en place un nouveau data store,<br>
+vous pouvez considérer cette propriété  <div class="inner_code">store</div> comme le data store global que nous allons configurer avec Vuex.<br><br>
+Jetons un œil au fichier dans lequel toute la magie Vuex a lieu :  <div class="inner_code">src/store.js</div>
+
+<h3>Rencontrez <div class="inner_code">store/index.js</div></h3>
+<figure>
+  <img src="media/51-vuex.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+En parcourant  <div class="inner_code">store/index.js</div>, vous remarquerez une nouvelle ligne de code que nous n'avions pas encore rencontrée :<br>
+<div class="code">Vue.use(Vuex)</div><br><br>
+Cette syntaxe est utilisée pour le système de <a href="https://fr.vuejs.org/v2/guide/plugins.html" target='_blank'>plugins Vue</a>.
+Cette méthode permet d'ajouter une fonctionnalité globale à notre instance de Vue.<br>
+Et comme notre but est d'ajouter un data store global dans notre application, le système de plugin est parfait pour ajouter Vuex à notre application.<br><br>
+Ensuite, comme pour la mise en place d'une nouvelle instance de Vue avec  <div class="inner_code">new Vue()</div>,<br>
+Vuex est installé de la même manière avec <div class="inner_code">new Vuex.Store()</div>.<br>
+Et vous pouvez également lui passer des options de configuration, exactement comme pour une nouvelle instance de Vue.
+
+<h3>Configurez Vuex</h3>
+Comme nous le voyons dans  <div class="inner_code">store/index.js</div>, l'initialisation d'un nouveau store Vuex ne nécessite qu'une seule configuration.<br>
+Cela se fait par un objet contenant trois clés :
+<ol>
+  <li>state</li>
+  <li>mutations</li>
+  <li>actions</li>
+</ol>
+<figure>
+  <img src="media/52-vuex.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+
+<h3>Entrainez-vous </h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P4C2-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+      <li>Ajoutez Vuex à l'application.</li>
+      <li>Vérifiez que la boilerplate pour le store est bien présente dans un fichier comme  <div class="inner_code">store/index.js</div>.</li>
+</ol>
+
+<h3>En résumé</h3>
+Dans ce chapitre, nous avons appris :
+<ul>
+  <li>ce qu'est Vuex : une bibliothèque de gestion d'état permettant de créer un store centralisé qui deviendra la seule source de vérité de notre app ;</li>
+  <li>comment installer Vuex sur notre application ;</li>
+  <li>le fonctionnement de la structure de Vuex.</li>
+</ul>
+
+
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="data_vueX">4.3 Récupérez des données depuis Vuex</h2> 
+Maintenant que nous avons installé Vuex dans notre application, il est temps pour nous de comprendre son fonctionnement.<br>
+Et comme Vuex nous sert de store global, nous devrions commencer par apprendre dès maintenant comment stocker et récupérer les données qui s'y trouvent.
+<h3>Stockez des données dans Vuex</h3>
+Dans Vuex, notre data store est défini en tant que  <div class="inner_code">state</div>  dans l'objet de configuration  <div class="inner_code">store/index.js</div>.<br>
+Il s'agit d'un nouveau terme à apprendre, mais vous pouvez comparer cela à la propriété  <div class="inner_code">data</div>  que nous utilisons depuis le début.<br>
+<figure>
+  <img src="media/53-vuex.png" alt="">
+  <figcaption>Une comparaison entre le  state  du store Vuex et<br> le data store d'un objet de config standard Vue</figcaption>
+</figure><br><br>
+Lorsqu'il s'agit de stocker des données dans Vuex,<br>
+c'est aussi simple que d'ajouter des paires clé-valeur,<br>
+comme vous le feriez dans tout autre objet JavaScript normal.<br>
+  <img src="media/54-vuex.png" alt="">
+  <figcaption>Une comparaison entre le  state  du store Vuex et<br> le data store d'un objet de config standard Vue</figcaption>
+</figure><br><br>
+<div class="question"><img src="media/question-circle-regular.svg">Du coup, cela veut dire que je devrais tout mettre dans le state Vuex plutôt que dans le data store des composants ? </div><br><br>
+Il peut paraître tentant de tout mettre dans le store global ;<br>
+mais ce n'est pas ce qu'il faut faire, car une partie de ce qui rend l'architecture par composants aussi puissante est sa capacité à découper un certain nombre de sujets.<br>
+L'idée est de remonter les données à un niveau global uniquement lorsque vous constaterez qu'il est nécessaire d'accéder aux données à partir de plusieurs composants.
+
+<h3>Récupérez des données dans Vuex</h3>
+Maintenant que nous savons comment définir les données dans Vuex,<br>
+l'étape suivante consiste naturellement à déterminer comment accéder à nos données depuis nos composants.<br>
+Il existe deux façons de faire.
+<h4>Utilisez $store</h4>
+Au fur et à mesure que vous allez approfondir des techniques plus avancées de Vue et que vous développerez vos connaissances,<br>
+vous découvrirez des propriétés qui sont précédées du symbole dollar.<br>
+En voici quelques exemples :
+<ul>
+  <li><div class="inner_code">this.$options</div></li>
+  <li><div class="inner_code">this.$parent</div></li>
+  <li><div class="inner_code">this.$children</div></li>
+  <li>etc...</li>
+</ul>
+Il s'agit de propriétés spécifiques à l'instance de Vue sur laquelle vous travaillez ;<br>
+elles sont précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu.<br><br>
+Comme notre  <div class="inner_code">store</div>  Vuex est injecté à un niveau global à travers tous nos composants,<br>
+cela signifie que nous avons accès à une propriété  <div class="inner_code">$store</div>  qui nous permettra d'accéder directement à Vuex dans sa totalité.<br><br>
+Si on reprend notre exemple situé plus haut, nous pourrions accéder à notre  state  via  <div class="inner_code">$store</div>  par ce qui suit :<br>
+<img src="media/55-vuex.png" alt="">
+</figure><br><br>
+Cependant, notre template commence à être un peu encombré.<br>
+Il serait pratique d'avoir un moyen plus simple de faire référence au store, n'est-ce pas ?<br>
+Eh bien, heureusement pour nous, il y a :  <div class="inner_code">mapState</div>  !
+
+<h4>Utilisez mapState</h4>
+
+
+
 
 
 
@@ -1329,10 +1501,7 @@ Dans ce chapitre, vous avez découvert :
 
   </body>
   </html>
-
-
-
-
+  
 
   <div class="inner_code"></div> 
   <h5><a href="#sommaire">Sommaire</a></h5>
