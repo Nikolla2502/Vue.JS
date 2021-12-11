@@ -37,6 +37,7 @@
             <li><strong><a href="#state_management">4.1 Découvrez le principe de state management</a></strong></li>
             <li><strong><a href="#vueX">4.2 Créez un data store centralisé avec Vuex</a></strong></li>
             <li><strong><a href="#data_vueX">4.3 Récupérez des données depuis Vuex</a></strong></li>
+            <li><strong><a href="#data_modify_vueX">4.4 Modifiez vos données dans Vuex</a></strong></li>
         </ul>
       </div>
       <div class="sommaire">
@@ -47,6 +48,7 @@
           <li><a href="https://fr.vuejs.org/v2/guide/components-props.html" target='_blank'><div class="inner_code">props</div> - Documentation officielle</a></li>
           <li><a href="https://github.com/vuejs/devtools" target='_blank'>Vue DevTools</a></li>
           <li><a href="https://fr.vuejs.org/v2/guide/plugins.html" target='_blank'>Plugins VueX</a></li>
+          <li><a href="https://vuex.vuejs.org/fr/guide/getters.html" target='_blank'>documentation officielle sur les accesseurs (getters)</a></li>
           <li><a href="" target="_blank"></a></li>
           <li><a href="" target="_blank"></a></li>
           <li><a href="" target="_blank"></a></li>
@@ -1490,6 +1492,229 @@ Il serait pratique d'avoir un moyen plus simple de faire référence au store, n
 Eh bien, heureusement pour nous, il y a :  <div class="inner_code">mapState</div>  !
 
 <h4>Utilisez mapState</h4>
+Vuex nous fournit un moyen d'associer le state à des variables que nous pouvons appeler dans nos composants, évitant ainsi de devoir appeler  <div class="inner_code">$store</div>  à chaque fois :  <div class="inner_code">mapState</div>.<br>
+Cette méthode nous permet de demander à Vuex les propriétés de state de notre choix, et il les ajoutera à nos propriétés calculées.<br>
+<figure>
+  <img src="media/56-mapState.png" alt="">
+  <figcaption></figcaption>
+</figure><br>
+<figure>
+  <img src="media/57-mapState.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="remarque">
+  Vous pouvez remarquer que j'utilise ici la <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/Spread_syntax" target='_blank'>syntaxe de décomposition (spread operator)</a> <div class="inner_code">...</div> avant <div class="inner_code">mapState</div>.<br>
+  Cela n'est pas obligatoire, mais il est courant d'utiliser cette syntaxe de décomposition pour définir d'autres propriétés calculées.
+</div><br><br>
+En cas de conflit sur les noms, vous aurez peut-être besoin de donner un nom différent à vos variables du state Vuex dans votre composant,<br>
+ce qui est facilement réalisable en switchant l'argument depuis un tableau vers un objet, comme ici :<br>
+<figure>
+  <img src="media/58-mapState.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+Dans cet objet, la clé représente le nouveau nom que vous voulez utiliser pour référencer votre valeur,<br>
+tandis que la valeur correspond à la propriété de state que Vuex doit référencer.<br><br>
+<div class="remarque">
+  Pour plus d'informations sur le state dans Vuex, vous pouvez consulter la <a href="https://vuex.vuejs.org/fr/guide/state.html" target='_blank'>documentation officielle sur state</a>.
+</div><br><br>
+Ceci étant dit, vous remarquerez probablement que nous sommes en train d'assembler notre date manuellement.<br>
+Si cette date était référencée à plusieurs endroits dans l'application, cela serait très difficile à maintenir.<br>
+Si seulement il existait un moyen de définir des propriétés calculées dans un store Vuex...
+<h3>Découvrez les getters</h3>
+Lorsque  <div class="inner_code">store.js</div>  est généré à la base,<br>
+il laisse de côté une des propriétés qui est très utile dans de nombreux scénarios : <strong>les « getters », ou accesseurs</strong>.<br>
+Les accesseurs peuvent être vus comme l'équivalent de la propriété calculée (computed) dans Vue.<br><br>
+<figure>
+  <img src="media/59-getters.png" alt="Map Getters">
+  <figcaption>Une comparaison entre le getters du store Vuex <br>et la propriété computed dans une configuration Vue classique</figcaption>
+</figure><br><br>
+Cette comparaison montre la manière dont les accesseurs dans un store Vuex correspondent théoriquement à la propriété calculée dans un objet de configuration Vue standard.<br>
+Ainsi, dans notre exemple de date, voilà la manière avec laquelle nous définirions notre date formatée :<br>
+<figure>
+  <img src="media/60-getters.png" alt="Map Getters">
+</figure><br><br>
+Comme vous pouvez le voir dans l'exemple, chaque accesseur est une fonction qui reçoit le state comme argument et retourne une valeur à laquelle nous pourrons accéder plus tard.<br>
+Ensuite, nous pouvons simplifier notre code encore davantage dans le composant, grâce à  <div class="inner_code">mapGetters</div>, qui fonctionne comme  <div class="inner_code">mapState</div>.<br>
+<figure>
+  <img src="media/61-getters.png" alt="Map Getters">
+</figure><br><br>
+Et tout comme  <div class="inner_code">mapState</div>,  <div class="inner_code">mapGetters</div>  peut également prendre un objet qui vous permet de définir des noms personnalisés pour les accesseurs que vous référencez.<br><br>
+<div class="remarque">
+  Pour plus d'informations sur les accesseurs, vous pouvez consulter la <a href="https://vuex.vuejs.org/fr/guide/getters.html" target='_blank'>documentation officielle sur les accesseurs</a>.
+</div>
+<h3>Entraînez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P4C3-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+      <li>Migrez les données du  <div class="inner_code">shoppingCart</div>  vers Vuex.</li>
+      <li>Migrez les données relatives à  <div class="inner_code">restaurantName</div>  vers Vuex.</li>
+      <li>Migrez les données de  <div class="inner_code">simpleMenu</div>  vers Vuex.</li>
+      <li>Migrez <div class="inner_code">copyright</div>  vers les accesseurs (getters).</li>
+</ol>
+<h3>En résumé</h3>
+Dans ce chapitre, vous avez appris à :
+<ul>
+  <li>définir le data store dans Vuex avec state ;</li>
+  <li>récupérer des propriétés depuis Vuex dans vos composants avec  <div class="inner_code">$store</div>  ;</li>
+  <li>définir des propriétés calculées à l'aide d'accesseurs dans Vuex ;</li>
+  <li>récupérer le state depuis Vuex avec <div class="inner_code">mapState</div> ;</li>
+  <li>récupérer des accesseurs depuis Vuex avec <div class="inner_code">mapGetters</div>.</li>
+</ul>
+
+
+<h5><a href="#sommaire">Sommaire</a></h5>
+  
+<h2 id="data_modify_vueX">4.4 Modifiez vos données dans Vuex</h2>
+Dans le chapitre précédent, nous avons appris à définir notre espace de stockage de données dans Vuex avec  <div class="inner_code">state</div>  et des <div class="inner_code">getters</div>,<br>
+ mais également à récupérer nos données avec des méthodes comme  <div class="inner_code">mapState</div>  et  <div class="inner_code">mapGetters</div>.<br>
+ Dans ce chapitre, nous allons passer à l'étape suivante dans la gestion de notre data store : mettre à jour et modifier nos données dans Vuex avec les mutations.<br><br>
+ <figure>
+  <img src="media/62-mutations.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+La deuxième clé définie dans le store est appelée <strong>mutation</strong>.<br>
+Comme son nom l'indique, elle contiendra un objet de toutes les propriétés responsables de modifications du  <div class="inner_code">state</div>.
+<h4>Définissez une mutation</h4>
+Si nous prenons l'exemple traditionnel du compteur, nous pouvons définir une mutation comme suit :<br>
+<figure>
+  <img src="media/63-mutations.png" alt="">
+  <figcaption></figcaption>
+</figure><br><br>
+<div class="important">La convention de nommage pour les mutations consiste à utiliser uniquement des majuscules avec des underscores pour séparer les mots.<br>
+  Cela fait partie des bonnes pratiques et permet d'indiquer clairement qu'il ne s'agit pas de fonctions normales à appeler par hasard.</div><br><br>
+  Par défaut, la mutation reçoit le  <div class="inner_code">state</div>  en premier argument.<br>
+  Ce dernier peut ensuite être utilisé pour effectuer les modifications nécessaires.<br>
+  Dans l'exemple ci-dessus, nous ne faisons qu'incrémenter <div class="inner_code">state.count</div>  de 1.<br><br>
+  Cependant,  cette technique a ses limites car nous pourrions envisager de rendre la valeur incrémentée dynamique.<br>
+  Heureusement, les mutations peuvent prendre un deuxième argument : le paramètre <strong>payload</strong>.<br><br>
+  <figure>
+    <img src="media/64-mutations.png" alt="">
+    <figcaption></figcaption>
+  </figure><br><br>
+  Dans l'exemple révisé, nous autorisons maintenant l'utilisateur à :
+<ul>
+  <li>transmettre de combien nous voulons que  <div class="inner_code">state.count</div>  soit incrémentée ;</li>
+  <li>fixer une valeur par défaut de 1, au cas où l'utilisateur oublie de transmettre une valeur :</li>
+  <li>convertir la valeur en nombre pour qu'elle ne s'ajoute pas comme chaîne de caractères par accident.</li>
+</ul>
+<h4>Actez une mutation</h4>
+Lorsqu'il s'agit de modifier le state d'une application, il est essentiel que cela soit fait au bon moment.<br>
+En d'autres termes, une attention et un soin particuliers sont accordés à ces événements, afin de s'assurer que toute erreur soit facilement identifiée.<br>
+Par conséquent, plutôt que d'invoquer la mutation comme une fonction normale, nous utilisons une action spéciale : <strong>commit</strong>.<br><br>
+Lorsqu'une mutation est actée, l'action commit prend deux paramètres :
+<ul>
+  <li>nom de la mutation ;</li>
+  <li>payload (facultatif).</li>
+</ul>
+  <div class="inner_code">this.$store.commit('INCREMENT_COUNT', 2)</div><br><br>
+  <div class="important">En revanche, même s'il est techniquement possible d'appeler des mutations directement à partir des composants,<br>
+    je ne vais pas vous le montrer,<br>
+    car ce n'est pas considéré comme <strong>une bonne pratique dans les applications Vue.js</strong>.</div><br><br>
+    Lorsqu'une mutation est actée, la modification est faite immédiatement.<br>
+    En d'autres termes, les mutations Vuex sont synchrones, ce qui signifie qu'il n'est par exemple <strong>pas possible de récupérer des données d'une API dans une mutation</strong>.<br><br>
+    <div class="remarque">L'avantage, c'est que votre state se transforme en timeline historique,<br>
+    dans laquelle vous pouvez retracer les modifications apportées à ce state,<br>
+    chaque mutation se produisant étape par étape.</div><br><br>
+Bien sûr, vous vous demandez probablement de quelle manière il faudrait acter les mutations.<br>
+Pour répondre à cette question, nous allons devoir parler des <strong>actions</strong>.     
+
+<h3>Découvrez les actions</h3>
+Jusqu'à présent, nous avons appris que :
+<ul>
+  <li><div class="inner_code">State</div>  contient notre data store global ;</li>
+  <li>les accesseurs (getters) servent de propriétés calculées à nos espaces de stockage de données ;</li>
+  <li>les mutations nous permettent de mettre à jour/modifier le state.</li>
+</ul>
+La dernière pièce du puzzle est les <strong>actions</strong>.<br>
+Elles nous servent à coordonner la logique derrière les mutations.<br>
+En d'autres termes, elles sont similaires à la propriété  <div class="inner_code">methods</div>  dans une instance de Vue.
+<figure>
+  <img src="media/65-actions.png" alt="">
+  <figcaption>Les actions dans le store Vuex sont similaires à la propriété methods dans une instance Vue</figcaption>
+</figure><br><br>
+<h3>Définissez une action</h3>
+Pour continuer avec notre exemple de compteur, nous pourrions définir notre action de la façon suivante :<br>
+<figure>
+  <img src="media/66-actions.png" alt="">
+
+</figure><br><br>
+Une action est composée d'un nom, du paramètre  <div class="inner_code">context</div>  et d'un <strong>payload</strong> optionnel (comme pour les mutations).<br>
+Dans l'exemple ci-dessus :
+<ul>
+  <li><div class="inner_code">incrementCount</div> est le nom de l'action ;</li>
+  <li>le paramètre <div class="inner_code">context</div> nous donne accès aux mêmes méthodes et propriétés dans l'instance du store Vuex (par exemple, commit, state, getters, etc.) ;</li>
+  <li><div class="inner_code">amount</div> est le payload que nous devons transmettre à la mutation, afin qu'elle augmente de la bonne valeur.</li>
+</ul>
+<div class="remarque">Comme je l'ai fait dans cet exemple, vous pouvez renommer le payload comme vous le souhaitez.<br>
+  Cependant, sachez simplement qu'il est désigné comme le payload lorsque l'on parle d'une implémentation.</div>
+
+<h3>Découvrez l'utilité des actions</h3>
+Sur la base de l'exemple ci-dessus, vous vous demandez peut-être pourquoi ne pas simplement appeler la mutation directement.<br>
+Mais que se passerait-il lorsqu'il faut diminuer le  <div class="inner_code">count</div>  d'une certaine valeur ?<br>
+<figure>
+  <img src="media/67-actions.png" alt="">
+</figure><br><br>
+Une certaine logique est nécessaire pour déterminer quand déclencher chaque mutation.<br>
+Pour tenir compte de cela, rendons notre action générique de la manière suivante :<br>
+<figure>
+  <img src="media/68-actions.png" alt="">
+</figure><br><br>
+<div class="question"><img src="media/question-circle-regular.svg">Pourquoi ne pas simplement réunir les mutations en une seule ?</div><br>
+Nous pourrions rendre la mutation générique à quelque chose comme  <div class="inner_code">CHANGE_COUNT</div>,<br>
+mais en regardant l'historique, cela nous fournirait moins de détails, ce qui rend les choses plus difficiles à débugger.<br>
+Par conséquent, il est préférable que les mutations gardent un seul usage.<br>
+Laissez la logique aux actions.<br><br>
+De plus, comme le paramètre  <div class="inner_code">context</div>  peut être utilisé pour accéder à de nombreuses propriétés différentes du store Vuex,<br>
+vous allez découvrir une technique de codage courante qui est <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target='_blank'>l'affectation par décomposition (desctructuring, en anglais)</a>.<br>
+Elle est faite pour simplifier le code et le rendre plus facile à lire.<br>
+Avec notre exemple, cela ressemblerait à ce qui suit :<br>
+<figure>
+  <img src="media/69-actions.png" alt="">
+</figure><br><br>
+En plus de nous donner la liberté de déterminer la logique du moment où les mutations sont déclenchées, les  <div class="inner_code">actions</div>  sont <strong>asynchrones</strong>.<br>
+Cela signifie que vous ne pouvez appeler des API et acter des mutations qu'en cas de réussite.<br>
+Ou en fonction de ce que vous souhaitez réaliser.<br><br>
+Maintenant que nous savons comment définir les actions, la question suivante se pose :<br>
+comment les utiliser dans nos composants ?
+
+<h4>Utilisez les actions dans les composants</h4>
+Tout comme il existe un terme spécial pour invoquer les mutations (c'est-à-dire acter ou « commit »), il existe aussi un terme spécial pour les actions : <strong>propager (dispatch)</strong>.<br>
+En d'autres termes, vous envoyez l'action pour exécuter une tâche.<br>
+Donc, si vous vouliez propager une action depuis votre composant, cela ressemblerait à ce qui suit :<br>
+<figure>
+  <img src="media/70-actions.png" alt="">
+</figure><br><br>
+Cependant, comme pour  <div class="inner_code">mapState</div>  et  <div class="inner_code">mapGetters</div>, il existe un équivalent pour les actions :  <div class="inner_code">mapActions</div><br>
+<figure>
+  <img src="media/71-actions.png" alt="">
+</figure><br><br>
+
+<h3>Entraînez-vous</h3>
+Vous trouverez le code source des exercices dans le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target='_blank'>GitHub</a> du cours, dans le dossier  <div class="inner_code">cafe-avec-vue</div>.<br>
+Pour commencer, consultez la branche  <div class="inner_code">P4C4-Begin</div>.
+<h4>Instructions</h4>
+<ol>
+      <li>Migrez l'événement d'ajout au panier de  <div class="inner_code">Home.vue</div>  et  <div class="inner_code">MenuItem.vue</div>  vers Vuex.</li>
+      <li>Créez une mutation qui met à jour le  <div class="inner_code">state</div>  du <div class="inner_code">shoppingCart</div>.</li>
+      <li>Créez une action qui peut être déclenchée depuis  <div class="inner_code">MenuItem.vue</div>  qui met à jour le panier d'achat dans  <div class="inner_code">Home.vue</div></li>
+</ol>
+
+<h3>En résumé</h3>
+Dans ce chapitre, vous avez découvert :
+<ul>
+  <li>ce que sont les mutations et les actions ;</li>
+  <li>comment utiliser les mutations pour mettre à jour le state ;</li>
+  <li>comment utiliser les actions pour gérer vos mutations ;</li>
+  <li>comment déclarer et utiliser des actions dans vos composants.</li>
+</ul>
+    
+
+    
+
+    
+
+    
 
 
 
@@ -1501,31 +1726,32 @@ Eh bien, heureusement pour nous, il y a :  <div class="inner_code">mapState</div
 
   </body>
   </html>
+ 
+<!--   
   
-
   <div class="inner_code"></div> 
   <h5><a href="#sommaire">Sommaire</a></h5>
   
     <h2 id="1">- 1 -</h2> 
   
     <a href="" target='_blank'></a>
-  <!--question################-->
+  question################
   
   <div class="question"><img src="media/question-circle-regular.svg"></div><br>
      
-    <!---insertion d'une figure avec commentaire-->
+    -insertion d'une figure avec commentaire
     <figure>
       <img src="media/" alt="">
       <figcaption></figcaption>
     </figure><br><br>
-    <span style="color:rgb(0, 0, 0);">.</span> <!-- point invisible code-->
-    <span style="color:rgb(206, 201, 201);">.</span> <!-- point invisible inner_code-->
-    <span style="color:rgb(140, 140, 140);"></span> <!-- commentaire -->
-    <span style="color:red;"></span> <!--Ligne à souligner dans le code################-->
+    <span style="color:rgb(0, 0, 0);">.</span> point invisible code
+    <span style="color:rgb(206, 201, 201);">.</span> point invisible inner_code
+    <span style="color:rgb(140, 140, 140);"></span> commentaire
+    <span style="color:red;"></span> Ligne à souligner dans le code################
     <span class="keyboard"></span>
-      <!--########### Commandes importantes border noire ########-->
+      ########### Commandes importantes border noire ########
       <strong  style="border: 2px solid black;display:inline-block;padding: 5px;"></strong><br/><br/>
-  <!--########### Tableaux double  ##########-->
+  ########### Tableaux double  ##########
   <div class="tableau_double" style="display: flex;">
     <strong  style="border: 2px solid black; display:inline-block; padding: 5px;">
       <span style="color:red;border: 1px solid red;padding:2px;">Titre1</span><br/>
@@ -1540,12 +1766,12 @@ Eh bien, heureusement pour nous, il y a :  <div class="inner_code">mapState</div
   </div><br/>
 
   
-  <!--#### Liste sans les points ######-->
+  #### Liste sans les points ######
   
   <ul style=" list-style-type: none;">
   
   
-  <!--############## Tableaux ############-->
+  ############## Tableaux ############
   <table>
     <caption>Entête du tableau</caption>
   
@@ -1565,5 +1791,5 @@ Eh bien, heureusement pour nous, il y a :  <div class="inner_code">mapState</div
         <td>Donnée 2</td>
     </tr>
   </table>
-  <!--############## Tableaux FIN ############-->
-  
+  ############## Tableaux FIN ############
+   -->
