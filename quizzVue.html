@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylecours.css" />
+    <style>
+        .vrai{
+            color:green;
+ 
+        }
+        .faux{
+            text-decoration: line-through;
+            color:red;
+            /* color:rgb(104, 103, 103); */
+            
+        }
+        .quizz{
+        background: rgb(139, 205, 250);
+        text-align:center;
+        height:50px;
+        padding-top:20px;
+        padding-bottom:20px;
+        margin:0 80px;
+        margin-top:100px;
+        line-height: 30px;
+        Font-size:2.5rem;
+        font-weight:bold;
+        border: 3px solid rgb(52, 137, 194);
+        }
+        
+    </style>
+    <title>Quizz VueJS</title>
+  </head>
+
+<body>
+
+<div class="title">Quizz Vue JS</div>
+
+<H1 class="quizz" style="background: rgb(108, 255, 174);border: 3px solid rgb(64, 163, 109);">Créez une application web avec Vue.js</H1>
+
+<H2 class="quizz">Construisez une application Vue.js</H2>
+<strong>1 - Quelle directive pouvez-vous utiliser pour réaliser des boucles sur des éléments ? <br>
+<ul>
+    <li class="faux">
+        <div class="inner_code">v-for</div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">v-bind</div>
+    </li><br>
+    <li class="vrai">
+        <div class="inner_code">v-for</div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">v-model</div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">v-show</div>
+    </li><br>
+    <em>La directive <div class="inner_code">v-for</div> vous permet d'afficher des listes sous la forme d'un tableau ou d'un objet qui utilise une syntaxe similaire à la syntaxe  <div class="inner_code">for ... in ...</div>  en JavaScript.</em>
+</ul>
+
+<strong>2 - Vrai ou faux ? Vous pouvez créer une application Vue.js sans aucun outil de build.<br>
+
+<ul>
+    <li class="vrai">
+        <strong>Vrai</strong>
+    </li><br>
+    <li class="faux">
+        <strong>Faux</strong>
+    </li><br>
+    <em>Bien que Vue.js dispose de ses propres outils de build pour les applications à plus grande échelle,<br>
+        la manière la plus simple est d'utiliser le lien CDN pour Vue.<br>
+        Un copier-coller et vous êtes prêt à créer une application complète !</em>
+</ul>
+<strong>3 - Quelle propriété de configuration est utilisée pour créer un data store réactif ?</strong>
+        
+<ul>
+    <li class="faux" >
+        <div class="inner_code">el</div>
+    </li><br>
+    <li class="vrai" >
+        <div class="inner_code">data</div>
+    </li><br>
+    <li class="faux" >
+        <div class="inner_code">computed</div>
+    </li><br>
+    <li class="faux" >
+        <div class="inner_code">methods</div>
+    </li><br>
+    <em>La propriété data sur une instance de Vue vous permet de créer un data store réactif qui suit et met à jour l'utilisation de chaque propriété déclarée à l'intérieur.</em>
+</ul>
+<strong>4 - Si un utilisateur doit fréquemment afficher ou cacher un élément de la page,<BR>
+     quelle est la meilleure directive à utiliser ? </strong>
+    
+     <ul>
+        <li class="faux" >
+            <div class="inner_code">v-bind</div>
+        </li><br>
+        <li class="faux" >
+            <div class="inner_code">v-for</div>
+        </li><br>
+        <li class="faux" >
+            <div class="inner_code">v-model</div>
+        </li><br>
+        <li class="vrai" >
+            <div class="inner_code">v-show</div>
+        </li><br>
+        <li class="faux" >
+            <div class="inner_code">v-if</div>
+        </li><br>
+        <em>La directive  <div class="inner_code">v-show</div>  permet de basculer la visibilité (toggle) d'un élément en CSS.<BR>
+            C'est plus performant que  <div class="inner_code">v-if</div>, où tout l'élément HTML est détruit et recréé à chaque affichage et chaque destruction.</em>
+    </ul>
+
+<strong>5 -Ici, le code de notre développeur rend des données statiques. Pourquoi ? </strong><br>
+    <figure>
+        <img src="media/quizz_1.png" alt="">
+    </figure>
+    <ul>
+        
+        <li class="vrai">
+            Il devrait utiliser la directive  <div class="inner_code">v-bind</div>.
+        </li>
+        <li class="faux">
+            Il aurait dû préfixer les propriétés avec  <div class="inner_code">@</div>.
+        </li><br>
+        <li class="faux">
+            Il devrait utiliser la boucle  <div class="inner_code">v-for</div>.
+        </li><br>
+        <li class="faux">
+            Il devrait utiliser la directive  <div class="inner_code">v-on</div>.
+        </li><br>
+        <em>La directive <div class="inner_code">v-bind</div> vous permet de manipuler les propriétés HTML en précisant à Vue de l'interpréter comme du JavaScript plutôt que comme une chaîne de caractères statique.</em>
+    </ul>
+
+    <strong>6 -Ce code ne fonctionne pas comme prévu.<br>
+        Quand l'utilisateur saisit du texte dans l'input, le data store ne se met pas à jour.<br>
+        Qu'est-ce qui peut bien poser problème ici ? </strong><br>
+    <figure>
+        <img src="media/quizz_2.png" alt="">
+    </figure>
+    <ul>
+        <li class="faux">
+            Il aurait fallu utiliser la propriété  <div class="inner_code">computed</div>.
+        </li><br>
+        <li class="faux">
+            Il faut utiliser une  <div class="inner_code">méthode</div>  pour récupérer la valeur de l'input..
+        </li><br>
+        <li class="vrai">
+            La directive  <div class="inner_code">v-model</div>  a été oubliée sur l'input.
+        </li><br>
+        <em>La directive  <div class="inner_code">v-model</div>  est la manière la plus courante de s'assurer que les éléments d'un formulaire sont reliés à la bonne propriété du data store.<br>
+            Dans ce cas, ça devrait être<br>
+            <div class="inner_code">< input type="text" id="first-name" v-model="firstName" /></div>.</em>
+    </ul>
+
+    <strong>7 -Le code ci-dessous ne fonctionne pas comme prévu.<br>
+         Qu'est-ce qui ne va pas avec ce code ?</strong><br>
+    <figure>
+        <img src="media/quizz_3.png" alt="">
+    </figure>
+    <ul>
+        <li class="faux">
+            Il doit utiliser la propriété  <div class="inner_code">computed</div>.
+        </li><br>
+        <li class="vrai">
+            La propriété  <div class="inner_code">message</div>  aurait dû être précédée de  <div class="inner_code">this</div>.
+        </li><br>
+        <li class="faux">
+            Il n'y a pas de problème avec le code.
+        </li><br>
+        <em>Lorsque vous souhaitez faire référence à une propriété dans l'instance Vue,<br>
+            vous devez fournir un contexte avec  <div class="inner_code">this</div>  pour vous assurer qu'elle fait référence à l'instance Vue actuelle.</em>
+    </ul>
+    
+    <strong>8 - Jetez un coup d'œil au code ci-dessous.<br>
+        En supposant que le data store ne puisse pas être modifié,<br>
+        quelle technique peut-on utiliser pour rendre le HTML plus propre ? </strong><br>
+    <figure>
+        <img src="media/quizz_4.png" alt="">
+    </figure>
+    <ul>
+        <li class="faux">
+            Créer une méthode qui génère le nom complet.
+        </li><br>
+        <li class="vrai">
+            Créer une propriété calculée appelée <div class="inner_code">fullName</div>.
+        </li><br>
+        <li class="faux">
+            Utiliser la directive  <div class="inner_code">v-for</div>  pour faire une boucle dans le data store.
+        </li><br>
+        <li class="faux">
+            ULe code n'a pas besoin d'être modifié.
+        </li><br>
+        <em>Les propriétés calculées sont un excellent moyen d'éviter un encombrement du HTML puisqu'elles vous permettent d'assembler dynamiquement des données,<br>
+            tout en restant faciles à lire dans votre HTML.</em>
+    </ul>
+
+<H2 class="quizz">Passez à la vitesse supérieure avec Vue CLI</H2>
+Pour répondre aux questions, vous devrez cloner le repo <a href="https://github.com/amandinelemoult2109/Vue-fr" target="_blank">GitHub</a> avec le code nécessaire.<br><br>
+<strong>1 - Quels sont les avantages à utiliser Vue CLI pour créer des applications web ?<br>
+    Attention, plusieurs réponses sont possibles.</strong>
+<ul>
+    <li class="vrai" >
+        Il permet d'utiliser très simplement Babel, TypeScript, ESLint, PostCSS, PWA, tests unitaires et tests end-to-end.
+    </li><br>
+    <li class="vrai" >
+        Il dispose d'un système de plugin permettant à la communauté de construire et de partager des solutions réutilisables pour des besoins communs.
+    </li><br>
+    <li class="faux">
+        Le code ES2015 natif peut être envoyé sans effort pour les navigateurs modernes. 
+    </li><br>
+    <li class="faux">
+        Il permet d'utiliser des composants à fichier unique (*.vue).
+    </li><br>
+
+    <em>Vue CLI est un outil puissant qui permet aux développeurs de construire des applications robustes qui évoluent tout en étant facilement maintenables.</em>
+</ul>
+
+
+<strong>2 - Le composant  <div class="inner_code">Counter</div>  ne s'affiche pas sur la page d'accueil.<br>
+    Qu'est-ce qui peut bien se passer ici ?</strong><br>
+<ul>
+    <li class="faux">
+        Le composant n'a pas encore été importé.
+    </li><br>
+    <li class="vrai">
+        Le composant n'a pas été enregistré.
+    </li><br>
+    <li class="faux">
+        Le composant n'a pas encore été créé.
+    </li><br>
+    <li class="faux">
+        Le composant n'a pas été exporté correctement.
+    </li><br>
+    <em>Même si le composant  <div class="inner_code">Counter</div>  a bien été importé,<br>
+        il doit encore être enregistré dans la propriété  <div class="inner_code">components</div>  pour être accessible dans le bloc  <div class="inner_code">template</div>.</em>
+</ul>
+<strong>3 - Lorsqu'un utilisateur se connecte à la route  <div class="inner_code">/login</div>,<br>
+    la page apparaît vide. Qu'est-ce qui peut bien se passer ici ?</strong>    
+<ul>
+    <li class="vrai">
+        Il n'y a pas d'objet route pour  <div class="inner_code">/login</div>  dans  <div class="inner_code">router.js</div>.
+    </li><br>
+    <li class="faux">
+        Le fichier  <div class="inner_code">/views/Login.vue</div>  n'est pas importé.
+    </li><br>
+    <li class="faux">
+        Il manque à  <div class="inner_code">app.vue</div>  l'élément  <div class="inner_code">< router-view></div>, qui permet à Vue Router de rendre correctement les itinéraires.
+    </li><br>
+    <li class="faux">
+        Il n'y a pas de fichier  <div class="inner_code">/views/Login.vue</div>.
+    </li><br>
+    <em>Pour que Vue Router puisse rendre une URL, celle-ci doit être correctement définie dans  <div class="inner_code">router.js</div>.</em>
+</ul>
+
+<strong>4 -Parmi les hooks de cycle de vie suivants,<br>
+     lequel est le plus pertinent pour lancer des méthodes asynchrones,<br>
+      afin de récupérer des données depuis une API ?</strong>
+    
+<ul>
+    <li class="vrai">
+        <div class="inner_code">beforeMount</div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">mounted</div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">beforeDestroy</div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">destroyed</div>
+    </li><br>
+
+    <em>Lorsque vous récupérez des données à partir d'une API externe,<br>
+        vous voulez prévoir le plus de temps possible pour éviter de faire attendre l'utilisateur trop longtemps.<br>
+        Or, tous les autres hooks du cycle de vie se déclenchent après l'apparition du composant à l'écran,<br>
+         ce qui augmenterait le temps d'attente perçu par l'utilisateur..</em>
+</ul>
+
+<strong>5 - L'application comporte actuellement les symboles de hachage  <div class="inner_code">#</div>  dans l'URL.<br>
+    Que devez-vous faire pour que les URL apparaissent comme des URL normaux ?</strong>
+<ul>
+    <li class="faux">
+        e pas inclure le symbole  <div class="inner_code">#</div>  lorsque vous définissez  href  sur un lien.
+    </li><br>
+    <li class="faux">
+        Ajouter une propriété  <div class="inner_code">standard</div>  aux éléments d'ancrage.
+    </li><br>
+    <li class="vrai">
+        Configurer le routeur Vue pour utiliser le mode historique HTML5.
+    </li><br>
+    <li class="faux">
+        Ajouter la prop  <div class="inner_code">history</div>  aux éléments  <div class="inner_code">router-link</div>.
+    </li><br>
+    <em>Par défaut, Vue Router utilise le mode  <div class="inner_code">hash</div>  pour s'assurer qu'il fonctionne sur tous les navigateurs,<br>
+        quelle que soit la configuration du serveur.<br>
+        Le mode historique HTML5 nécessite une configuration supplémentaire, que vous pouvez découvrir dans la documentation.</em>
+</ul>
+
+<strong>6 - L'application doit pouvoir rendre le nom d'un utilisateur sur la base de l'URL.<br>
+     Mais ça ne fonctionne pas comme souhaité actuellement. Pourquoi ?</strong>
+<ul>
+    <li class="faux">
+        Vue Router est incapable de gérer des routes dynamiques.
+    <li class="faux">
+        Les paramètres doivent être définis dans des propriétés calculées.
+    </li><br>
+    <li class="vrai">
+        La concordance dynamique des routes n'est pas utilisée.
+    </li><br>
+    <li class="faux">
+        Le composant nécessite une propriété dans Data spéciale pour permettre le routage dynamique.
+    </li><br>
+    <em>La concordance dynamique des routes (dynamic route matching) permet à une application de cartographier des routes selon un modèle défini dans le routeur et indiqué par deux points  <div class="inner_code">:</div>.<br>
+        Vous pouvez en savoir plus sur la <a href="https://router.vuejs.org/fr/guide/essentials/dynamic-matching.html#reactivite-aux-changements-de-parametres" target="_blank">concordance dynamique des routes dans la documentation de Vue Router</a>.</em>
+</ul>
+
+<strong>7 - Lorsque l'utilisateur clique sur le lien "À propos", cela déclenche un rafraîchissement de la page entière.<br>
+        Quel élément du Vue Router devrait être utilisé à la place pour éviter ce comportement ?</strong>
+<ul>
+    <li class="faux">
+        <div class="inner_code">< router-view></div>
+    </li><br>
+    <li class="vrai">
+        <div class="inner_code">< router-link></div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">< router-anchor></div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">< router-url></div>
+    </li><br>
+    <em>Le  <div class="inner_code">< router-link></div>  de Vue Router permet à l'utilisateur de naviguer en empêchant le rafraîchissement de la page entière.<br>
+         Pour plus d'informations, consultez la <a href="https://router.vuejs.org/fr/api/#router-link" target="_blank">documentation sur le router-link</a>.</em><br>
+
+</ul>
+
+<H2 class="quizz">Créez des composants réutilisables avec Vue.js</H2>
+
+<strong>1 - Si vous souhaitez passer des données à un composant enfant, quelle technique devez-vous utiliser ?</strong>
+<ul>
+    <li class="faux">
+        Propriétés calculées
+    </li><br>
+    <li class="faux">
+        Methods
+    </li><br>
+    <li class="vrai">
+        Props
+    </li><br>
+    <li class="faux">
+        Data store
+    </li><br>
+    <em>Les props sont des attributs personnalisés que vous pouvez enregistrer dans un composant afin qu'il puisse accéder à ces données.<br>
+        Pour plus d'informations, vous pouvez consulter <a href="https://fr.vuejs.org/v2/guide/components.html" target="_blank">la documentation sur les props</a>.</em><br>
+</ul>
+
+
+<strong>2 - Il y a actuellement un bug dans notre application.<br>
+     Comme vous le voyez ci-dessous, un composant affiche différents types de données dans le message, tels que des arrays et des objets.</strong><br>
+     <figure>
+        <img src="media/quizz_5.png" alt="5">
+    </figure><br>
+    Quel est le meilleur moyen d'éviter ce genre de problème ?
+<ul>
+    <li class="faux">
+        Définir la propriété  <div class="inner_code">required</div>  dans la prop.
+    </li><br>
+    <li class="vrai">
+        Définir le type de propriété avec une valeur  <div class="inner_code">String</div>.
+    </li><br>
+    <li class="faux">
+        Définir une propriété  <div class="inner_code">default</div>  dans la prop.
+    </li><br>
+    <li class="faux">
+        Définir un nom de prop personnalisé qui indique aux autres développeurs de n'utiliser que des chaînes de caractères.
+    </li><br>
+    <em>En définissant le  <div class="inner_code">type</div>  à   <div class="inner_code">String</div>  pour la <div class="inner_code">prop</div>,<br>
+        cela permettra à Vue de protéger la <div class="inner_code">prop</div> contre la réception d'autres types de données, ce qui empêchera le bug de se produire.</em><br>
+
+</ul>
+<strong>3 - Un développeur essaie d'utiliser les techniques SCSS dans le bloc de code ci-dessous.</strong>
+<figure>
+    <img src="media/quizz_6.png" alt="6">
+</figure><br>   
+Qu’a-t-il mal fait ? 
+<ul>
+    <li class="faux">
+        Il doit ajouter l'attribut  <div class="inner_code">scss</div>  au bloc  <div class="inner_code"><<span style="color:rgb(206, 201, 201);">.</span>style></div>. 
+    </li><br>
+    <li class="vrai">
+        Il doit ajouter l'attribut  <div class="inner_code">lang="scss"</div>  au bloc  <div class="inner_code"><<span style="color:rgb(206, 201, 201);">.</span>style></div>.
+    </li><br>
+    <li class="faux">
+        Il doit envelopper les styles dans un bloc  <div class="inner_code"><<span style="color:rgb(206, 201, 201);">.</span>scss></div>.
+    </li><br>
+    <li class="faux">
+        Il doit ajouter l'attribut  <div class="inner_code">preprocessor="scss"</div>  au bloc  <div class="inner_code"><<span style="color:rgb(206, 201, 201);">.</span>style></div>.
+    </li><br>
+    <em>Les préprocesseurs peuvent être activés en ajoutant l'attribut  <div class="inner_code">lang</div>  avec le préprocesseur souhaité.</em><br>
+</ul><br>
+
+
+<strong>4 -Quelle méthode a permis de générer le CSS suivant ?</strong><br>
+<div class="inner_code">.nav-item[data-12vr93] { ... }</div>
+    
+<ul>
+    <li class="faux">
+        Global CSS
+    </li><br>
+    <li class="vrai">
+        Scoped CSS
+    </li><br>
+    <li class="faux">
+        CSS Modules
+    </li><br>
+    <em>Le Scoped CSS est une technique qui a été créée pour éviter la collision des sélecteurs CSS grâce à l'utilisation d'attributs data générés de manière dynamique.</em><br>
+
+</ul><br>
+
+
+<strong>5 - Lorsqu'un composant enfant doit transmettre des données à son parent, quelle technique est-il possible d'utiliser ?</strong>
+<ul>
+    <li class="faux">
+        Les props
+    </li><br>
+    <li class="vrai">
+
+        Les événements personnalisés
+    </li><br>
+    <li class="faux">
+        Les slots
+    </li><br>
+    <li class="faux">
+        Les propriétés calculées
+    </li><br>
+    <em>Les événements personnalisés vous permettent de définir un événement à écouter pour le composant parent.</em><br>
+
+</ul><br>
+<strong>6 - Quelle méthodologie a été utilisée pour générer le CSS suivant ?</strong><br>
+<div class="inner_code">.nav-item-vje2901e { ... }</div>
+<ul>
+    <li class="faux">
+        Global CSS
+    </li><br>
+    <li class="faux">
+        Scoped CSS
+    </li><br>
+    <li class="vrai">
+
+        Modules CSS
+    </li><br>
+    <em>Les modules CSS sont une technique qui ajoute un hachage unique généré dynamiquement pour minimiser les collisions CSS et les effets secondaires.</em><br>
+
+</ul><br>
+<strong>7 - Lorsque vous définissez un événement personnalisé, outre le nom de l'événement, quel autre paramètre pouvez-vous également définir ?.</strong>
+<ul>
+    <li class="faux">
+        Le type
+    </li><br>
+    <li class="vrai">
+        Un payload
+    </li><br>
+    <li class="faux">
+        Required
+    </li><br>
+    <li class="faux">
+        Des variations de noms
+    </li><br>
+    <em>En plus de pouvoir faire écouter un événement aux éléments parents, les composants enfants peuvent transmettre des données avec l'événement par le biais d'un payload.</em><br>
+</ul>
+
+<strong>8 - Quels sont les avantages des slots ?.</strong><br>
+Attention, plusieurs réponses sont possibles.
+<ul>
+    <li class="faux">
+        Ça donne accès à une API flexible permettant aux développeurs de placer du contenu. 
+    </li><br>
+    <li class="vrai">
+        Ils permettent de créer différentes configurations sans avoir à fournir plusieurs props.
+    </li><br>
+    <li class="vrai">
+        Ça permet aux développeurs de désigner l'endroit où leur contenu apparaîtra de manière intuitive avec des emplacements nommés.
+    </li><br>
+    <li class="faux">
+        Les slots garantissent que tout le contenu fourni entre les balises d'ouverture et de fermeture d'un modèle est supprimé.
+    </li><br>
+    <em>Les slots sont une technique puissante qui vous permet de définir des zones dans votre composant qui peuvent accepter du contenu de manière flexible.</em><br>
+</ul>
+
+<H2 class="quizz">Gérez les données de votre application</H2>
+
+<strong>1 - Pourquoi la gestion d'état (state management) est-elle importante ?</strong><br>
+Attention, plusieurs réponses sont possibles.
+<ul>
+    <li class="vrai">
+        La synchronisation des données d'une application peut devenir trop complexe à mesure qu'une application se développe et s'étend. 
+    </li><br>
+    <li class="vrai">
+        Cela nous permet de créer une source unique de vérité pour les données de notre application.
+    </li><br>
+    <li class="faux">
+        Elle garantit que toutes les copies de données sont indépendantes les unes des autres.
+    </li><br>
+    <li class="vrai">
+        Les composants de notre application doivent pouvoir accéder aux données et les mettre à jour, quel que soit leur emplacement dans la codebase.
+    </li><br>
+    <em>Il est difficile de synchroniser les données à mesure qu'une application se développe et prend de l'ampleur. Les modèles de gestion d'état tels que Vuex sont essentiels pour réussir à construire une application à plus grande échelle.<br>
+        La réussite de la gestion d'un state est très souvent liée au respect du principe de source unique de vérité.</em>
+</ul>
+
+
+<strong>2 - Quelle partie de Vuex est chargée d'apporter directement des modifications au data store ?</strong><br>
+<ul>
+    <li class="faux">
+        Le state
+    </li><br>
+    <li class="faux">
+        Les getters
+    </li><br>
+    <li class="faux">
+        Les actions
+    </li><br>
+    <li class="vrai">
+        Les mutations
+    </li><br>
+    <em>Les mutations sont la seule façon d'apporter des changements au store Vuex.</em>
+</ul>
+<strong>3 - Quelle partie de Vuex est responsable de la gestion des données dans le store ?</strong>    
+<ul>
+    <li class="vrai">
+        Le state
+    </li><br>
+    <li class="faux">
+        Les getters
+    </li><br>
+    <li class="faux">
+        Les actions
+    </li><br>
+    <li class="faux">
+        Les mutations
+    </li><br>
+    <em>Vuex utilise le state comme data store, ce qui est analogue à la propriété  <div class="inner_code">data</div>  que nous utilisons dans les instances de Vue.</em>
+</ul><br>
+<strong>4 -Quelle partie de Vuex est responsable de la gestion de la logique qui peut déclencher des changements dans le data store ?</strong>
+    
+<ul>
+    <li class="faux">
+        Le state
+    </li><br>
+    <li class="faux">
+        Les getters
+    </li><br>
+    <li class="vrai">
+        Les actions
+    </li><br>
+    <li class="faux">
+        Les mutations
+    </li><br>
+    <em>Comme la seule responsabilité d'une mutation est la mise à jour du store,<br>
+         la responsabilité des actions est de gérer la logique et de déclencher les appels asynchrones,<br>
+          ce qui peut déclencher autant de mutations que nécessaire.</em>
+</ul><br>
+
+<strong>5 - Quel est le mot clé pour déclencher une mutation ?</strong>
+<ul>
+    <li class="faux">
+        trigger
+    </li><br>
+    <li class="vrai">
+        commit
+    </li><br>
+    <li class="faux">
+        initiate
+    </li><br>
+    <li class="faux">
+        call
+    </li><br>
+    <em>Le mot clé  <div class="inner_code">commit</div>  permet d'appeler des mutations.</em>
+</ul><br>
+
+<strong>6 - Actuellement, un développeur utilise les getters de la manière suivante :</strong>
+<figure>
+    <img src="media/quizz_7.png" alt="7">
+    <figcaption></figcaption>
+  </figure><br>
+  Qu’est-ce qui est incorrect ?
+<ul>
+    <li class="faux">
+        Les getters ne doivent être utilisés que pour les fonctions asynchrones.
+    </li><br>
+    <li class="vrai">
+        Les getters sont destinés à être utilisés comme des propriétés calculées plutôt que de simplement récupérer un état,<br>
+        puisque l'on peut y accéder directement par des méthodes comme mapState.
+    </li><br>
+    <li class="faux">
+        Les getters doivent être utilisés pour faire muter l'état.
+    </li><br>
+    <li class="faux">
+        Il n'y a pas de problème avec ce code.
+    </li><br>
+    <em>Les getters sont utilisés pour calculer l'état dérivé sur la base de l'état actuel du store.<br>
+        Les exemples comprennent le filtrage d'une liste d'articles ou le renvoi de la longueur de la liste.<br>
+        SI vous voulez en apprendre plus, vous pouvez jeter un œil à la <a href="https://vuex.vuejs.org/fr/guide/getters.html" target="_blank">documentation officielle des getters</a> (ou accesseurs, en français).</em>
+</ul><br>
+
+<strong>7 - Un développeur essaie de débugger le code suivant :</strong>
+<figure>
+    <img src="media/quizz_8.png" alt="8">
+    <figcaption></figcaption>
+  </figure><br>
+  Attention, plusieurs réponses sont possibles.
+<ul>
+    <li class="vrai">
+        Les mutations sont des transactions synchrones.
+    </li><br>
+    <li class="vrai">
+        Les mutations ne peuvent pas contenir de code asynchrone comme la récupération de données à partir d'une API.  
+    </li><br>
+    <li class="faux">
+        Elles doivent utiliser une  <div class="inner_code">action</div>  pour récupérer les données et ensuite acter une mutation avec  <div class="inner_code">commit</div>  qui met à jour l'état.
+    </li><br>
+    <li class="faux">
+        Elles doivent utiliser des getters à la place des mutations.
+    </li><br>
+    <em></em>
+</ul><br>
+<strong>8 - Quelle est la syntaxe la plus courante pour accéder aux actions d'un store Vuex dans un composant ?</strong>
+<ul>
+    <li class="faux">
+        <div class="inner_code">...generateActions()</div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">...listActions()</div>
+    </li><br>
+    <li class="vrai">
+        <div class="inner_code">...mapActions()</div>
+    </li><br>
+    <li class="faux">
+        <div class="inner_code">...getActions()</div>
+    </li><br>
+    <em>Bien que vous puissiez accéder aux actions de Vuex via  <div class="inner_code">this.$store.dispatch</div>,<br>
+         il est plus courant d'utiliser  <div class="inner_code">map</div>  pour définir les propriétés que vous souhaitez voir disponibles dans Vue. </em>
+</ul>
+
+
+</body>
+</html>
+
+
